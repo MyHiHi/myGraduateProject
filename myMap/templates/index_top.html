@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="viewport" content="initial-scale=1.0, user-scalable=no"/>
+		<title>地图展示</title>
+
+{% load staticfiles %}
+
+
+        <script type="text/javascript" src="{% static 'js/jquery-1.11.3.min.js' %}"></script>
+         <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=eikVTDrvMvVnPldFlh44DWdUAKpq1xfL"></script>
+
+        <script type="text/javascript" src="{% static 'js/params.js' %}"></script>
+        <script type="text/javascript" src="{% static 'js/baiduFunction.js' %}"></script>
+
+
+		<style type="text/css">
+
+			body,html,#allmap{
+
+                height:100%;
+                width:100%;
+                overflow: hidden;
+                margin:0;
+                font-family:"微软雅黑";
+            }
+
+
+            #l-map{height:100%;width:70%;float:left}
+		    #r-result{float:right;width:28%;
+               }
+            #r-result div{
+                 margin-top:10px;
+            }
+
+		</style>
+
+	</head>

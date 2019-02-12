@@ -1,0 +1,21 @@
+{% include 'index_top.html' %}
+	<body>
+    <div id="r-result">
+                <div>
+                请输入:<input type="text" id="suggestId" size="70"  placeholder="输入地名"/>
+                    </div>
+
+            <div id="searchResultPanel" style="border:1px solid #C0C0C0;width:150px;height:auto; display:none;"></div>
+              <div class="optionpanel">
+
+
+            <label>选择</label>
+			<select id="styleList"  onchange="changePlace(this.value)">
+
+            </select>
+                  </div>
+        </div>
+		<div id="l-map"></div>
+
+
+{% include 'index_bottom.html' %}
