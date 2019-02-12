@@ -4,7 +4,7 @@ from django.test import TestCase
 
 import pdb
 
-# p = [12,2]
+# p = [12,2]噼噼啪啪铺铺铺铺
 # for i in map(p,[1,3]):
 #     print(i)
 # from pyquery import PyQuery as pq
