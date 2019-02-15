@@ -47,27 +47,29 @@ import pdb
 
 # print(time.time()-time1)
 
-from functools import (wraps,reduce)
+from functools import wraps, reduce
+
 
 class login(object):
     def __init__(self):
         pass
 
-    def __call__(self,func):
+    def __call__(self, func):
         @wraps(func)
         def wrapp(*args, **kwargs):
-            print(func.__name__+"was called")
+            print(func.__name__ + "was called")
             num = args[0]
             # print(num)
-            a,b=1,1
+            a, b = 1, 1
             for i in range(num):
                 print(a)
-                a,b=b,a+b
-            func(*args,**kwargs)
+                a, b = b, a + b
+            func(*args, **kwargs)
             self.notify(*args, **kwargs)
 
         return wrapp
-    def notify(self,*args,**kwargs):
+
+    def notify(self, *args, **kwargs):
         print("{0[0]}号 执行 {0[1]}".format(args))
 
 
@@ -88,8 +90,105 @@ class login(object):
 # for i in filter(lambda x:x<0,p):
 #     print(str(i)+"sdsd")
 
-p=list(map(lambda x:"http://www.pp?c={0}&p=12".format(x),range(10,40)))
+p = list(map(lambda x: "http://www.pp?c={0}&p=12".format(x), range(10, 40)))
 # for i in
-print(p)
+# print(p)
 
 # ppppp
+
+# def ep():
+#     name="Mike"
+#     age = 12;
+#     return name,age
+# # print(ep())
+
+# def exm(num,target=[]):
+#     target+=[num]
+#     return target
+
+# print(exm(243))
+
+# print(exm(2))
+
+# class exm(object):
+#     __slots__ = ["num1","num2"];
+#     def __init__(self,a,b):
+#         self.num1 = a;
+#         self.num2 = b;
+
+# p = exm(12,23)
+# print(p.num1)
+
+# c = p;
+# c.num1 = 11;
+# print(p.num1)
+
+from collections import defaultdict, Counter
+
+my_dict = defaultdict(list)
+other_dict = {}
+# other_dict["name"]="huaer"
+# # my_dict
+# print(other_dict)
+my_dict["am"] = "huaty"
+# print(my_dict["pp"])
+# print(other_dict["age"])
+
+# some_dict = {}
+# some_dict['colours']['favourite'] = "yellow"
+
+# print(my_dict)
+
+# with open("./admin.py","rb") as f:
+#     print(Counter(f))
+
+import os
+
+# print(os.path.isfile("./tests.py"))
+
+
+# def grep(pattern):
+#     while True:
+#         line = (yield)
+#         if pattern in line:
+#             print("{0} in {1}".format(pattern, line))
+
+
+# p = grep("ok")
+# next(p)
+# i = 1
+# while True:
+#     p.send(input("input{}:\n".format(i)))
+#     i += 1
+
+# from functools import lru_cache
+# import time
+
+# r = time.time()
+# @lru_cache(maxsize=22)
+# # 缓存频繁返回值
+# def fid(n):
+#     if n < 2:
+#         return n;
+#     else:
+#         return fid(n - 1) + fid(n - 2)
+# print([fid(n) for n in range(100)],"\n",time.time()-r)
+# fid.cache_clear()
+
+from functools import wraps
+def memorize(func):
+    mem={}
+    @wraps(func)
+    def wrapper(*args):
+        if args in mem:
+            return mem[args]
+        else:
+            mem[args]=func(*args)
+            return mem[args]
+    return wrapper
+
+@memorize
+def fib(n):
+    return n if n<2 else fib(n-1)+fib(n-2)
+
+print([fib(n) for n in range(100)])
