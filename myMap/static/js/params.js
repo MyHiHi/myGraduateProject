@@ -4,7 +4,7 @@ var c_location;//取到的城市
 var names = ["酒店","旅馆","饭店"]; //检索基础关键字
 var examples = ["景点","商场","大学","机场火车"];
 var init_point = new BMap.Point(116.404, 39.915);
-var init_class = 14
+var init_class = 15
 var geolocationControl = new BMap.GeolocationControl({showAddressBar:false,enableAutoLocation:true});//定位控件
 
 var geoc = new BMap.Geocoder();//地址解析
@@ -48,8 +48,6 @@ var ac = new BMap.Autocomplete(
 // 		    console.log("&*& "+rs)
 //     }
 // 	}); //本地检索
-
-
 
 geolocationControl.addEventListener("locationSuccess", function(r){
             var mk = getMarker(r.point);
@@ -95,7 +93,7 @@ function setPlace(){
 		//map.clearOverlays();    //清除地图上所有覆盖物
 		function myFun(){
 			var pp = local.getResults().getPoi(0).point;    //获取第一个智能搜索的结果
-			map.centerAndZoom(pp, 18);
+			map.centerAndZoom(pp, init_class);
 			map.addOverlay(new BMap.Marker(pp));    //添加标注
 		}
 		var local = new BMap.LocalSearch(map, { //智能搜索

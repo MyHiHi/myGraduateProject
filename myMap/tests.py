@@ -175,20 +175,64 @@ import os
 # print([fid(n) for n in range(100)],"\n",time.time()-r)
 # fid.cache_clear()
 
-from functools import wraps
-def memorize(func):
-    mem={}
-    @wraps(func)
-    def wrapper(*args):
-        if args in mem:
-            return mem[args]
-        else:
-            mem[args]=func(*args)
-            return mem[args]
-    return wrapper
+# from functools import wraps
+# def memorize(func):
+#     mem={}
+#     @wraps(func)
+#     def wrapper(*args):
+#         if args in mem:
+#             return mem[args]
+#         else:
+#             mem[args]=func(*args)
+#             return mem[args]
+#     return wrapper
 
-@memorize
-def fib(n):
-    return n if n<2 else fib(n-1)+fib(n-2)
+# @memorize
+# def fib(n):
+#     return n if n<2 else fib(n-1)+fib(n-2)
 
-print([fib(n) for n in range(100)])
+# print([fib(n) for n in range(100)])
+
+# class File(object):
+#     def __init__(self,file_name,method):
+#         self.file_obj=open(file_name,method);
+#     def __enter__(self):
+#         print("entered!")
+#         return self.file_obj
+#     def __exit__(self,type,value,traceback):
+#         print("error occurs")
+#         self.file_obj.close()
+#         return True
+
+# with File("rr.txt","r") as opened_file:
+#     c = opened_file.reads()
+
+cookies = """
+_fid:a9425451-db56-4ba5-8b88-713fb95042f9
+anti_token:BA9C5EB2-0BFA-4F81-8E56-112A82122800
+com.eLong.CommonService.OrderFromCookieInfo:Orderfromtype=1&Parentid=50000&Status=1&Cookiesdays=0&Coefficient=0.0&Pkid=50&Priority=8000&Isusefparam=0&Makecomefrom=0&Savecookies=0
+CookieGuid:	a9425451-db56-4ba5-8b88-713fb95042f9
+Esid:85eb852b-1892-4add-bbd5-dfa83cecc92c
+ext_param:bns=4&ct=3
+fv:pcweb
+s_cc:true
+s_sq:[[B]]
+s_visit:1
+SessionGuid:024b0cc0-4a9a-48fa-9c06-e40bd5562ec2
+SHBrowseHotel:cn=40101009,,,,,,;40101131,,,,,,;90050071,,,,,,;&
+ShHotel:InDate=2019-02-16&OutDate=2019-02-17
+"""
+
+v = cookies.split("\n")
+my_cookie = {}
+for i in v:
+    c = i.split(":")
+    if len(c) > 1:
+        my_cookie[c[0]] = c[1]
+print(my_cookie)
+
+import requests
+
+url = "http://hotel.elong.com/"
+r = requests.get(url=url,cookies=my_cookie)
+print(r.text)
