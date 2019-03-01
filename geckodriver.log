@@ -1,0 +1,186 @@
+1551256724343	mozrunner::runner	INFO	Running command: "D:\\software\\firefox\\firefox.exe" "-marionette" "-foreground" "-no-remote" "-profile" "C:\\Users\\ADMINI~1\\AppData\\Local\\Temp\\rust_mozprofile.mz5EUX3qBrFR"
+1551256726003	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid host permission: resource://pdf.js/
+1551256726008	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid host permission: about:reader*
+1551256730383	Marionette	INFO	Listening on port 62314
+1551256730535	Marionette	WARN	TLS certificate errors will be ignored for this session
+JavaScript warning: http://hotel.qunar.com/render/detail_lbs.jsp?fromDate=2019-03-01&toDate=2019-03-02&hotelSeq=baoding_5117&bid=2875604079001600118&uid=d5d2b3792d200e366cc02ce5&geo=1%7C12866346.27%2C4678213.56%3B12866346.27%2C4678213.56%7C12866346.27%2C4678213.56%3B&cityCode=307&domain=map.baidu.com, line 93: String.trim is deprecated; use String.prototype.trim instead
+JavaScript warning: http://q.qunarzz.com/hotel_fekit/prd/scripts/detail_lbs@bf1b6f82ce6ca2d01133.js, line 1: unreachable code after return statement
+[Child 15088, Chrome_ChildThread] WARNING: pipe error: 109: file z:/build/build/src/ipc/chromium/src/chrome/common/ipc_channel_win.cc, line 332
+[Child 1508[Child 15984, Chrome_ChildThread] WARNING: pipe error: 109: file z:/build/build/src/ipc/chromium/src/chrome/common/ipc_channel_win.cc, line 332
+[Child 15984, Chrome_ChildThread] WARNING[Parent 16164, Gecko_IOThread] WARNING: pipe error: 109: file z:/build/build/src/ipc/chromium/src/chrome/common/ipc_channel_win.cc, line 332
+[Child 15528, Chrome_ChildThread] WARNING: pipe error: 109: file z:/build/build/src/ipc/chromium/src/chrome/common/ipc_channel_win.cc, line 332
+[Child 11551256865528	Marionette	INFO	Stopped listening on port 62314
+
+###!!! [Child][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+
+[GPU 11480, C
+###!!! [Child][MessageChannel::SendAndWait] Error: Channel error: cannot send/recv
+
+1551320833059	mozrunner::runner	INFO	Running command: "D:\\software\\firefox\\firefox.exe" "-marionette" "-foreground" "-no-remote" "-profile" "C:\\Users\\ADMINI~1\\AppData\\Local\\Temp\\rust_mozprofile.dQDlugfd7Tr6"
+1551320835123	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid host permission: resource://pdf.js/
+1551320835124	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid host permission: about:reader*
+uncaught exception: out of memory
+JavaScript error: , line 0: uncaught exception: out of memory
+JavaScript error: , line 0: uncaught exception: out of memory
+Assertion failure: [unhandlable oom] Failed not allocate new chunk during GC, at z:/build/build/src/js/src/vm/JSContext.cpp:1486
+Exiting due to channel error.
+1551321022486	mozrunner::runner	INFO	Running command: "D:\\software\\firefox\\firefox.exe" "-marionette" "-foreground" "-no-remote" "-profile" "C:\\Users\\ADMINI~1\\AppData\\Local\\Temp\\rust_mozprofile.ZzUrOezKxktC"
+1551321023515	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid host permission: resource://pdf.js/
+1551321023515	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid host permission: about:reader*
+1551321027265	Marionette	INFO	Listening on port 49984
+1551321027589	Marionette	WARN	TLS certificate errors will be ignored for this session
+[GFX1-]: [D3D11] 2 CreateTexture2D failure Size: Size(1267,742)texture11: false Code: 0x8007000e
+[GFX1-]: [D3D11] 2 CreateTexture2D failure Size: Size(1267,742)texture11: false Code: 0x8007000e
+[GFX1-]: Failed buffer for 0, 0, 1267, 742
+JavaScript error: , line 0: uncaught exception: out of memory
+JavaScript error: http://webmap0.map.bdimg.com/static/hotel/util_a694726.js, line 15: ReferenceError: jQuery is not defined
+JavaScript error: , line 0: uncaught exception: out of memory
+[GFX1-]: [D3D11] 2 CreateTexture2D failure Size: Size(1267,833)texture11: false Code: 0x8007000e
+[GFX1-]: Failed buffer for 0, 0, 1267, 833
+JavaScript error: , line 0: uncaught exception: out of memory
+JavaScript error: , line 0: uncaught exception: out of memory
+JavaScript error: , line 0: uncaught exception: out of memory
+[GFX1-]: [D3D11] 2 CreateTexture2D failure Size: Size(1267,833)texture11: false Code: 0x8007000e
+[GFX1-]: Failed buffer for 0, 0, 1267, 833
+JavaScript error: , line 0: uncaught exception: out of memory
+[GFX1-]: [D3D11] 2 CreateTexture2D failure Size: Size(1267,833)texture11: false Code: 0x8007000e
+[GFX1-]: Failed buffer for 0, 0, 1267, 833
+JavaScript error: , line 0: uncaught exception: out of memory
+JavaScript error: , line 0: uncaught exception: out of memory
+JavaScript error: , line 0: uncaught exception: out of memory
+JavaScript error: , line 0: uncaught exception: out of memory
+console.error: "Could not write session state file " (new Error("TypeError: cannot use 'in' operator to search for 'toMsg' in 'out of memory'", "resource://gre/modules/workers/require.js line 141 > Function line 3 > eval", 172)) "postMessage@resource://gre/modules/PromiseWorker.jsm:313:17\n"
+JavaScript error: resource:///modules/sessionstore/ContentSessionStore.jsm, line 778: Error: TelemetryStopwatch: key "FX_SESSION_RESTORE_CONTENT_COLLECT_DATA_MS" was already initialized
+JavaScript error: resource:///modules/sessionstore/ContentSessionStore.jsm, line 784: Error: TelemetryStopwatch: requesting elapsed time for nonexisting stopwatch. Histogram: "FX_SESSION_RESTORE_CONTENT_COLLECT_DATA_MS", key: "storage"
+console.error: "Could not write session state file " (new TypeError("Primitives.maxCompressedSize is not a function", "resource://gre/modules/lz4.js", 86)) "compressFileContent@resource://gre/modules/lz4.js:86:27\nwriteAtomic@resource://gre/modules/osfile/osfile_shared_front.jsm:431:14\nwrite@resource:///modules/sessionstore/SessionWorker.js:208:9\nworker.dispatch@resource:///modules/sessionstore/SessionWorker.js:23:23\nhandleMessage@resource://gre/modules/workers/PromiseWorker.js:124:16\n@resource:///modules/sessionstore/SessionWorker.js:32:41\n"
+console.error: "Could not write session state file " (new TypeError("Primitives.maxCompressedSize is not a function", "resource://gre/modules/lz4.js", 86)) "compressFileContent@resource://gre/modules/lz4.js:86:27\nwriteAtomic@resource://gre/modules/osfile/osfile_shared_front.jsm:431:14\nwrite@resource:///modules/sessionstore/SessionWorker.js:196:9\nworker.dispatch@resource:///modules/sessionstore/SessionWorker.js:23:23\nhandleMessage@resource://gre/modules/workers/PromiseWorker.js:124:16\n@resource:///modules/sessionstore/SessionWorker.js:32:41\n"
+[Child 9140, Chrome_ChildThread] WARNING: pipe error: 109: file z:/build/build/src/ipc/chromium/src/chrome/common/ipc_channel_win.cc, line 332
+[Child 9140, Chrome_ChildThread][Parent 14064, Gecko_IOThread] WARNING: file z:/build/build/src/ipc/chromium/src/base/process_util_win.cc, line 166
+1551321135667	Marionette	INFO	Stopped listening on port 49984
+1551321151019	mozrunner::runner	INFO	Running command: "D:\\software\\firefox\\firefox.exe" "-marionette" "-foreground" "-no-remote" "-profile" "C:\\Users\\ADMINI~1\\AppData\\Local\\Temp\\rust_mozprofile.PpZAEH9OcvCL"
+1551321152441	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid host permission: resource://pdf.js/
+1551321152441	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid host permission: about:reader*
+1551321158030	Marionette	INFO	Listening on port 50136
+1551321158176	Marionette	WARN	TLS certificate errors will be ignored for this session
+JavaScript warning: http://hotel.qunar.com/render/detail_lbs.jsp?fromDate=2019-03-02&toDate=2019-03-03&hotelSeq=baoding_5117&bid=2875604079001600118&uid=d5d2b3792d200e366cc02ce5&geo=1%7C12866346.27%2C4678213.56%3B12866346.27%2C4678213.56%7C12866346.27%2C4678213.56%3B&cityCode=307&domain=map.baidu.com, line 93: String.trim is deprecated; use String.prototype.trim instead
+JavaScript warning: http://q.qunarzz.com/hotel_fekit/prd/scripts/detail_lbs@bf1b6f82ce6ca2d01133.js, line 1: unreachable code after return statement
+[Parent 14820, Gecko_IOThread] WARNING: pipe error: 109: file z:/build/build/src/ipc/chromium/src/chrome/common/ipc_channel_win.cc, line 332
+[Child 11564, Chrome_ChildThread] WARNING: pipe error: 109: file z:/build/build/src/ipc/chromium/src/chrome/common/ipc_channel_win.cc, line 332
+[Child 11564, [Child 12384, Chrome_ChildThread] WARNING: pipe error: 109: file z:/build/build/src/ipc/chromium/src/chrome/common/ipc_channel_win.cc, line 332
+[Child 12384, Chrome_Chi[Parent 14820, Gecko_IOThread] WARNING: pipe error: 109: file z:/build/build/src/ipc1551321259750	Marionette	INFO	Listening on port 50282
+1551321260117	Marionette	WARN	TLS certificate errors will be ignored for this session
+JavaScript warning: http://hotel.qunar.com/render/detail_lbs.jsp?fromDate=2019-03-02&toDate=2019-03-03&hotelSeq=baoding_5117&bid=2875604079001600118&uid=d5d2b3792d200e366cc02ce5&geo=1%7C12866346.27%2C4678213.56%3B12866346.27%2C4678213.56%7C12866346.27%2C4678213.56%3B&cityCode=307&domain=map.baidu.com, line 93: String.trim is deprecated; use String.prototype.trim instead
+JavaScript warning: http://q.qunarzz.com/hotel_fekit/prd/scripts/detail_lbs@bf1b6f82ce6ca2d01133.js, line 1: unreachable code after return statement
+[Parent 16988, Gecko_IOThread] WARNING: pipe error: 109: file z:/build/build/src/ipc/chromium/src/chrome/common/ipc_channel_win.cc, line 332
+[Child 4908, Chrome_ChildThread] WARNING: pipe error: 109: file z:/build/build/src/ipc/chromium/src/chrome/common/ipc_channel_win.cc, line 332
+[Child 4908, [Child 15948, Chrome_ChildThread] WARNING: pipe error: 109: file z:/build/build/src/ipc/chromium/src/chrome/common/ipc_channel_win.cc, line 332
+[Child 15948, [Parent 16988, Gecko_IOThread] WARNING: pipe error: 109: file z:/build/build/src/ipc/chromium/src/chrome/common/ipc_channel_win.cc, line 332
+1551321290245	Marionette	INFO	Stopped listening on port 50282
+
+###!!! [Child][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+
+[GPU 
+###!!! [Child][MessageChannel::SendAndWait] Error: Channel error: cannot send/recv
+
+1551321319180	mozrunner::runner	INFO	Running command: "D:\\software\\firefox\\firefox.exe" "-marionette" "-foreground" "-no-remote" "-profile" "C:\\Users\\ADMINI~1\\AppData\\Local\\Temp\\rust_mozprofile.NeaSeXfmSuMW"
+1551321319936	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid host permission: resource://pdf.js/
+1551321319936	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid host permission: about:reader*
+1551321323650	Marionette	INFO	Listening on port 50393
+1551321324134	Marionette	WARN	TLS certificate errors will be ignored for this session
+JavaScript warning: http://hotel.qunar.com/render/detail_lbs.jsp?fromDate=2019-03-02&toDate=2019-03-03&hotelSeq=baoding_5117&bid=2875604079001600118&uid=d5d2b3792d200e366cc02ce5&geo=1%7C12866346.27%2C4678213.56%3B12866346.27%2C4678213.56%7C12866346.27%2C4678213.56%3B&cityCode=307&domain=map.baidu.com, line 93: String.trim is deprecated; use String.prototype.trim instead
+JavaScript warning: http://q.qunarzz.com/hotel_fekit/prd/scripts/detail_lbs@bf1b6f82ce6ca2d01133.js, line 1: unreachable code after return statement
+1551321350957	mozrunner::runner	INFO	Running command: "D:\\software\\firefox\\firefox.exe" "-marionette" "-foreground" "-no-remote" "-profile" "C:\\Users\\ADMINI~1\\AppData\\Local\\Temp\\rust_mozprofile.moDIR3lWSFzK"
+1551321351928	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid host permission: resource://pdf.js/
+1551321351929	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid host permission: about:reader*
+1551321355231	Marionette	INFO	Listening on port 50501
+1551321355376	Marionette	WARN	TLS certificate errors will be ignored for this session
+JavaScript warning: http://hotel.qunar.com/render/detail_lbs.jsp?fromDate=2019-03-02&toDate=2019-03-03&hotelSeq=baoding_5117&bid=2875604079001600118&uid=d5d2b3792d200e366cc02ce5&geo=1%7C12866346.27%2C4678213.56%3B12866346.27%2C4678213.56%7C12866346.27%2C4678213.56%3B&cityCode=307&domain=map.baidu.com, line 93: String.trim is deprecated; use String.prototype.trim instead
+JavaScript warning: http://q.qunarzz.com/hotel_fekit/prd/scripts/detail_lbs@bf1b6f82ce6ca2d01133.js, line 1: unreachable code after return statement
+[Parent 1968, Gecko_IOThread] WARNING: pipe error: 109: file z:/build/build/src/ipc/chromium/src/chrome/common/ipc_channel_win.cc, line 332
+[Child 8416, Chrome_ChildThread] WARNING: pipe error: 109: file z:/build/build/src/ipc/chromium/src/chrome/common/ipc_channel_win.cc, line 332
+[Child 8416, Chrome_ChildThread] WARNIN[Parent 1968, Gecko_IOThread] WARNING: pipe error: 109: file z:/build/build/src/ipc/chromium/src/chrome/common/ipc_channel_win.cc, line 332
+[Parent 1968, Gecko_IOThread] WARNING: pipe error: 109: file z:/build/build/src/ipc/chromium/src/chrome/common/ipc_channel_win.cc, line 332
+[Child 13524, Chrome_ChildThread] WARNING: pipe error: 109: file z:/build/build/src/ipc/chromium/src/chrome/common/ipc_channel_win.cc, line 332
+[Parent 1968, Gecko_IOThread] WARNING: pipe error: 109: file z:/build/build/src/ipc/chromium/src/chrome/common/ipc_channel_win.cc, line 332
+[Child 1916, Chrome_ChildThread] WARNING: pipe error: 109: file z:/build/build/src/ipc/chromium/src/chrome/common/ipc_channel_win.cc, line 332
+[Child 1916, Chrom1551328304597	Marionette	INFO	Stopped listening on port 50501
+
+###!!! [Child][MessageChannel::SendAndWait] Error: Channel error: cannot send/recv
+
+urn statement
+[Parent 18068, Gecko_IOThread] WARNING: pipe error: 109: file z:/build/build/src/ipc/chromium/src/chrome/common/ipc_channel_win.cc, line 332
+[Parent 18068, Gecko_IOThread] WARNING: pipe error: 109: file z:/build/build/src/ipc/chromium/src/chrome/common/ipc_channel_win.cc, line 332
+[Child 11772, Chrome_ChildThread] WARNING: pipe error: 109: file z:/build/build/src/ipc/chromium/src/chrome/common/ipc_channel_win.cc, line 332
+[Child 17312, Chrome_ChildThread] WARNING: pipe error: 109: file z:/build/build/src/ipc/chromium/src/chrome/common/ipc_channel_win.cc, line 332
+[Child 17312, [Parent 18068, Gecko_IOThread] WARNING: pipe error: 109: file z:/build/build/src/ipc/chromium/src/chrome/common/ipc_channel_win.cc, line 332
+[Child 14396, Chrome_ChildThread] WARNING: pipe error: 109: file z:/build/build/src/ipc/chromium/src/chrome/common/ipc_channel_win.cc, line 332
+[Parent 18068, Gecko_IOThread] WARNING: file z:/build/build/src/ipc/chromium/src/base/process_util_win.cc, line 166
+1551328296639	Marionette	INFO	Stopped listening on port 50619
+1551329222644	mozrunner::runner	INFO	Running command: "D:\\software\\firefox\\firefox.exe" "-marionette" "-foreground" "-no-remote" "-profile" "C:\\Users\\ADMINI~1\\AppData\\Local\\Temp\\rust_mozprofile.XRnbxAOC2E0D"
+1551329223618	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid host permission: resource://pdf.js/
+1551329223618	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid host permission: about:reader*
+1551329226947	Marionette	INFO	Listening on port 54924
+1551329227040	Marionette	WARN	TLS certificate errors will be ignored for this session
+JavaScript error: resource://gre/modules/WebProgressChild.jsm, line 58: TypeError: this.mm.content is null
+[Parent 19976, Gecko_IOThread] WARNING: pipe error: 109: file z:/build/build/src/ipc/chromium/src/chrome/common/ipc_channel_win.cc, line 332
+[Parent 19976, Gecko_IOThread] WARNING: pipe error: 109: file z:/build/build/src/ipc/chromium/src/chrome/common/ipc_channel_win.cc, line 332
+[Parent 19976, Gecko_IOThread] WARNING: pipe error: 109: file z:/build/build/src/ipc/chromium/src/chrome/common/ipc_channel_win.cc, line 332
+[Child 2608, Chrome_ChildThread] WARNING: pipe error: 109: file z:/build/build/src/ipc/chromium/src/chrome/common/ipc_channel_win.cc, line 332
+[Parent 19976, Gecko_IOThread] WARNING: pipe error: 109: file z:/build/build/src/ipc/chromium/src/chrome/common/ipc_channel_win.cc, line 332
+[Child 13512, Chrome_ChildThread] WARNING: pipe error: 109: file z:/build/build/src/ipc/chromium/src/chrome/common/ipc_channel_win.cc, line 332
+[Child 1351551329534459	Marionette	INFO	Stopped listening on port 54924
+[GPU
+###!!! [Child][MessageChannel::SendAndWait] Error: Channel error: cannot send/recv
+
+in.cc, line 332
+1551329531363	Marionette	INFO	Stopped listening on port 55410
+[GPU 6388, Ch[Parent 3688, Gecko_IOThread] WARNING: pipe error: 232: file z:/build/build/src/ipc/chromium/src/chrome/common/ipc_channel_win.cc, line 493
+
+###!!! [Child][MessageChanJavaScript error: resource://gre/modules/WebProgressChild.jsm, line 58: TypeError: this.mm.content is null
+[Parent 4636, Gecko_IOThread] WARNING: pipe error: 109: file z:/build/build/src/ipc/chromium/src/chrome/common/ipc_channel_win.cc, line 332
+[Child 2420, Chrome_ChildThread] WARNING: pipe error: 109: file z:/build/build/src/ipc/chromium/src/chrome/common/ipc_channel_win.cc, line 332
+[Parent 4636, Gecko_IOThread] WARNING: pipe error: 109: file z:/build/build/src/ipc/chromium/src/chrome/common/ipc_channel_win.cc, line 332
+[Child 1156, Chrome_ChildThread] WARNING: pipe error: 109: file z:/build/build/src/ipc/chromium/src/chrome/common/ipc_channel_win.cc, line 332
+[Child 1156, Ch[Parent 4636, Gecko_IOThread] WARNING: pipe error: 109: file z:[Parent 13444, Gecko_IOThread] WARNING: pipe error: 109: file z:/build/build/src/ipc/chromium/src/chrome/common/ipc_channel_win.cc, line 332
+[Parent 13444, Gecko_IOThread] WARNING: pipe error: 109: file z:/build/build/src/ipc/chromium/src/chrome/common/ipc_channel_win.cc, line 332
+[Child 16640, Chrome_ChildThread] WARNING: pipe error: 109: file z:/build/build/src/ipc/chromium/src/chrome/common/ipc_channel_win.cc, line 332
+[Child 16640, Chrome_ChildThread] WARNING: pipe error: 109: file z:/build/build/src/ipc/chrom[Parent 13444, Gecko_IOThread] WARNING: pipe error: 109: file z:/build/build/src/ipc/chromium/src/chrome/common/ipc_channel_win.cc, line 332
+[Child 10236, Chrome_ChildThread[Parent 3132, Gecko_IOThread] WARNING: pipe error: 109: file z:/build/build/src/ipc/chromium/src/chrome/common/ipc_channel_win.cc, line 332
+[Child 2324, Chrome_ChildThread] WARNING: pipe error: 109: file z:/build/build/src/ipc/chromium/src/chrome/common/ipc_channel_win.cc, line 332
+[Child 2324, Chrom[Parent 3132, Gecko_IOThread] WARNING: pipe error: 109: file z:/build/build/src/ipc/chromium/src/chrome/common/ipc_channel_win.cc, line 332
+[Child 21352, Chrome_ChildThread] WARNING: pipe error: 109: file z:/build/build/src/ipc/chromium/src/chrome/common/ipc_channel_win.cc, line 332
+[Child 21352, [Parent 3132, Gecko_IOThread] WARNING: pipe error: 109: file z:/build/build/src/ipc/chromium/JavaScript error: resource://gre/modules/WebProgressChild.jsm, line 58: TypeError: this.mm.content is null
+[Parent 17800, Gecko_IOThread] WARNING: pipe error: 109: file z:/build/build/src/ipc/chromium/src/chrome/common/ipc_channel_win.cc, line 332
+
+###!!! [Child][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+
+1551329741250	Marionette	INFO	Stopped listening on port 55842
+
+###!!! [Child][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+
+[GPU 19284, Chrome_ChildThread] WARNING: pipe error: 109: file z:NFO	Listening on port 56043
+1551329695302	Marionette	WARN	TLS certificate errors will be ignored for this session
+[Child 16436, Chrome_ChildThread] WARNING: pipe error: 109: file z:/build/build/src/ipc/chromium/src/chrome/common/ipc_channel_win.cc, line 332
+[Child 13240, Chrome_ChildThread] WARNING: pipe error: 109: file z:/build/build/src/ipc/chromium/src/chrome/common/ipc_channel_win.cc, line 332
+[Parent 13928, Gecko_IOThread] WARNING: pipe error: 109: file z:/build/build/src/ipc/chromium/src/chrome/common/ipc_channel_win.cc, line 332
+[Child 13792, Chrome_ChildThread] WARNING: pipe error: 109: file z:/build/build/src/ipc/chromium/src/chrome/common/ipc_channel_win.cc, line 332
+[Child 11551329742265	Marionette	INFO	Stopped listening on port 56043
+
+###!!! [Child][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+
+[GPU 14344, 
+###!!! [Child][MessageChannel::SendAndWait] Error: Channel error: cannot send/recv
+
+1551329842823	mozrunner::runner	INFO	Running command: "D:\\software\\firefox\\firefox.exe" "-marionette" "-foreground" "-no-remote" "-profile" "C:\\Users\\ADMINI~1\\AppData\\Local\\Temp\\rust_mozprofile.bC6vxCXH35t9"
+1551329844231	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid host permission: resource://pdf.js/
+1551329844231	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid host permission: about:reader*
+1551329846466	Marionette	INFO	Listening on port 56199
+1551329846662	Marionette	WARN	TLS certificate errors will be ignored for this session
+[Parent 16276, Gecko_IOThread] WARNING: pipe error: 109: file z:/build/build/src/ipc/chromium/src/chrome/common/ipc_channel_win.cc, line 332
+[Child 11340, Chrome_ChildThread] WARNING: pipe error: 109: file z:/build/build/src/ipc/chromium/src/chrome/common/ipc_channel_win.cc, line 332
+[Child 1[Parent 16276, Gecko_IOThread] WARNING: pipe error: 109: file z:/build/build/src/ipc/chromium/src/chrome/common/ipc_channel_win.cc, line 332
+1551329906958	Marionette	INFO	Stopped listening on port 56199
+
+###!!! [Child][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+
+[GPU 1[Parent 16276, Gecko_IOThread] WARNING: pipe error: 232: file z:/build/build/src/ipc/chromium/src/chrome/common/ipc_channel_win.cc, line 493

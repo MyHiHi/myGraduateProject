@@ -17,6 +17,7 @@ function initMap() {
     map.addControl(cityListControl);
     map.addControl(mapTypeControl);
     map.addControl(overviewMapControl);
+    map.addControl(navigationControl);
     map.addEventListener("click", showInfo);
 
     map.addEventListener("dragend", showPlace);
@@ -45,7 +46,7 @@ function initMap() {
 //     var local = new BMap.LocalSearch(map, {
 //         renderOptions: { map: map, autoViewport: true, selectFirstResult: false },
 //         onSearchComplete: function (rs) {
-           
+
 //             if (local.getStatus() == BMAP_STATUS_SUCCESS) {
 //                 console.log("搜索成功")
 //                 console.log(rs)
@@ -62,46 +63,60 @@ function initMap() {
 
 // }
 
-
-function showPlace(names){
-    setCount(0);
+//备用showPlace
+function showPlace(names) {
+   if (typeof names == Object){
+       names = ["酒店","旅馆","饭店"]; //检索基础关键字
+   }
     var mPoint = map.getCenter();
-    var count = 0 ;//成功搜索结果数
-    var circle = new BMap.Circle(mPoint,1000,{ strokeWeight: 1 ,fillOpacity: 0.3, strokeOpacity: 0.3});
-  //    map.addOverlay(circle);
-      var local =  new BMap.LocalSearch(map, {
-          renderOptions: {map: map, autoViewport: false},
-          onSearchComplete:function(rs){
-            if (local.getStatus() == BMAP_STATUS_SUCCESS) {
-                                console.log("搜索成功")
-                                count = rs[0].getNumPois()
-                                setCount(count);
-                                console.log("总数: "+count)
-                                for (var i=0;i<count;i++){
-                                    var position = rs[0].getPoi(i);
-                                    console.log(position)
-                                    if (position==null) continue;
-                                   
-                                    // var adddress = position.address;
-                                    var point  = position.point;
-                                    var name = position.title
-                                    //console.log(name+": "+":("+point.lat+","+point.lng+")");
-                               
-                                    
-                                }
-                            }
-                            else{
-                                console.log("搜索失败！")
-                                console.log(rs)
-                            }
-                           
-          }
-        });  
-        // names="酒店";//暂时一个
-      local.searchNearby(names,mPoint,1000);
+    var circle = new BMap.Circle(mPoint, 1000, { strokeWeight: 1, fillOpacity: 0.3, strokeOpacity: 0.3 });
+    map.addOverlay(circle);
+    var local = new BMap.LocalSearch(map, { renderOptions: { map: map, autoViewport: false } });
+    local.setSearchCompleteCallback(searchComplete);
+    local.setMarkersSetCallback(markersSet);
+    local.searchNearby(names, mPoint, 1000);
+     console.log(names);
+  
+}
+function markersSet(rs){
+    // console.log(rs)
+  
+    for (let i in rs){
+        point = rs[i].point;
+        point_str = point.lat+","+point.lng
+        if (sum_places[point_str]==null){
+            sum_places[point_str] = rs[i]
+        }
+    }
+    // console.log("This : \n",sum_places)
+    // console.log(sum_places.length)
+    // console.log(sum_places["38.865975,115.487819"])
+
+    console.log("返回数据了**********************")
+    count = Object.keys(sum_places).length
+    setCount(count);
+  
+    
+}
+function searchComplete(rs) {
+    console.log("搜索成功")
+    console.log("searchComplete: ",rs)
+    for (var i = 0; i < count; i++) {
+        var position = rs[0].getPoi(i);
+        // console.log(position)
+        if (position == null) continue;
+
+        // var adddress = position.address;
+        var point = position.point;
+        var name = position.title
+        //console.log(name+": "+":("+point.lat+","+point.lng+")");
+
+
+    }
 }
 
-function setCount(num){
+
+function setCount(num) {
     $("#count").html(num)
 }
 //开始定位
@@ -133,8 +148,11 @@ function getMarker(point) {
 function showInfo(e) {
     if (e.overlay) {
         var p = e.point
+        point_str = p.lat+","+p.lng
+        console.log("*******",sum_places[point_str])
+        console.log(sum_places)
         message = getDetails(e.point) //message : {place:"",brief:"",image:"",distance:""}
-        sContent = "<h4 style='margin:0 0 5px 0;padding:0.2em 0'>(" + p.lat+","+p.lng + ") </br>距离我：" + message.distance + "公里</br>" + "</h4>" +
+        sContent = "<h4 style='margin:0 0 5px 0;padding:0.2em 0'>(" + p.lat + "," + p.lng + ") </br>距离我：" + message.distance + "公里</br>" + "</h4>" +
             "<img style='float:right;margin:4px' id='imgDemo' src='" + message.image + "' width='139' height='104' title='" + message.place + "'/>" +
             "<p style='margin:0;line-height:1.5;font-size:13px;text-indent:2em'>" + message.brief + "</p>" +
             "</div>";

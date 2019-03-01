@@ -4,7 +4,10 @@ var c_location;//取到的城市
 var names = ["酒店","旅馆","饭店"]; //检索基础关键字
 var examples = ["景点","商场","大学","机场火车"];
 var init_point = new BMap.Point(116.404, 39.915);
-var init_class = 15
+var init_class = 16.5;
+var sum_places = new Array();//存储所有结果的字典
+var current_places = new Array();//当前本地搜索结果的字典
+
 var geolocationControl = new BMap.GeolocationControl({showAddressBar:false,enableAutoLocation:true});//定位控件
 
 var geoc = new BMap.Geocoder();//地址解析
@@ -15,6 +18,15 @@ var mapTypeControl = new BMap.MapTypeControl({
 			BMAP_HYBRID_MAP
 		]
 });
+ // 添加带有定位的导航控件
+ var navigationControl = new BMap.NavigationControl({
+    // 靠左上角位置
+    anchor: BMAP_ANCHOR_TOP_LEFT,
+    // LARGE类型
+    type: BMAP_NAVIGATION_CONTROL_LARGE,
+    // 启用显示定位
+    enableGeolocation: true
+  });
 
 var overviewMapControl = new BMap.OverviewMapControl({
         isOpen:true,
@@ -24,11 +36,13 @@ var overviewMapControl = new BMap.OverviewMapControl({
 
 var cityListControl = new BMap.CityListControl({
     anchor: BMAP_ANCHOR_TOP_LEFT,
-    offset: new BMap.Size(10, 20),
+    offset: new BMap.Size(60, 20),
     onChangeAfter:function(){
         geoc.getLocation(map.getCenter(),function(rs){
-            c_location = rs.addressComponents.city;
-            showPlace(names)
+			c_location = rs.addressComponents.city;
+			map.centerAndZoom(map.getCenter(),init_class)
+			showPlace(names);
+
             //console.log(c_location)
         })
     }
