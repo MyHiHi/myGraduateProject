@@ -18,13 +18,7 @@ from django.urls import path
 from myMap import views
 
 urlpatterns = [
-    path('index/',views.index,name="index"),
-
-
-    # 测试
-    path('test/',views.test,name="test"),
-    path("text/",views.text,name="text"),
-
-
-    path('admin/', admin.site.urls),
+    path("index/", views.index, name="index"),
+    path("get_details_by_uid", views.getDetailsByuid, name="get_details_by_uid"),
+    path("admin/", admin.site.urls),
 ]

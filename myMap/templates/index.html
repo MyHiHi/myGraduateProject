@@ -1,22 +1,28 @@
 {% include 'index_top.html' %}
 	<body>
-    <div id="r-result">
-        总搜索结果:<p id="count" style="display: inline">  0 </p>条
-                <div>
-                请输入:<input type="text" id="suggestId" size="70"  placeholder="输入地名"/>
+    <!-- <div id="r-result"> -->
+        <!-- 总搜索结果:<p id="count" style="display: inline">  0 </p>条
+         -->
+		<div id="l-map"></div>
+        <div id="place_select">
+
+            <div>
+                <input type="text" id="suggestId" size="80" placeholder="输入地名搜索"/>
                     </div>
 
-            <div id="searchResultPanel" style="border:1px solid #C0C0C0;width:150px;height:auto; display:none;"></div>
-              <div class="optionpanel">
+            <div id="searchResultPanel" style="border:1px solid #C0C0C0;width:150px;height:auto; display:none;">
+                
+            </div>
+       </div>
 
+       <div class="optionpanel" id="option">
+        <select id="styleList"  onchange="changePlace(this.value)">
 
-            <label>选择</label>
-			<select id="styleList"  onchange="changePlace(this.value)">
-
-            </select>
-                  </div>
+        </select>
         </div>
-		<div id="l-map"></div>
+    <div id="result_count">
+        总搜索结果:<p id="count" style="display: inline">  0 </p>条
+    </div>
 
 
 {% include 'index_bottom.html' %}

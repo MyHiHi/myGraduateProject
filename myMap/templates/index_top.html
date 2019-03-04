@@ -1,39 +1,72 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-	<meta name="viewport" content="initial-scale=1.0, user-scalable=no"/>
-		<title>地图展示</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+    <title>地图展示</title>
 
-{% load staticfiles %}
-
-
-        <script type="text/javascript" src="{% static 'js/jquery-1.11.3.min.js' %}"></script>
-         <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=DfPUKIDaRFpXtvAv1QqZBpS6D6SQwyMB"></script>
-
-        <script type="text/javascript" src="{% static 'js/params.js' %}"></script>
-        <script type="text/javascript" src="{% static 'js/baiduFunction.js' %}"></script>
+    {% load staticfiles %}
 
 
-		<style type="text/css">
+    <script type="text/javascript" src="{% static 'js/jquery-1.11.3.min.js' %}"></script>
+    <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=DfPUKIDaRFpXtvAv1QqZBpS6D6SQwyMB"></script>
 
-			body,html,#allmap{
-
-                height:100%;
-                width:100%;
-                overflow: hidden;
-                margin:0;
-                font-family:"微软雅黑";
-            }
+    <script type="text/javascript" src="{% static 'js/params.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/baiduFunction.js' %}"></script>
 
 
-            #l-map{height:100%;width:70%;float:left}
-		    #r-result{float:right;width:28%;
+    <style type="text/css">
+        body,
+        html,
+        #allmap {
+
+            height: 100%;
+            width: 100%;
+            overflow: hidden;
+            margin: 0;
+            font-family: "微软雅黑";
+        }
+
+        #l-map {
+            height: 100%;
+            width: 100%;
+
+        }
+
+        #place_select {
+            text-align: center;
+            left:32%;
+            top:3%;
+            position: absolute;
+            z-index: 9999;
+        }
+    #suggestId{
+        text-align: center;
+    }
+
+        #option {
+            right:3%;
+            top:15%;
+            position:absolute;
+            z-index: 9999;
+        }
+
+        #result_count{
+            right:11%;
+            top:2%;
+            position:absolute;
+            z-index: 9999;
+        }
+        /* 原先的 */
+
+        /* #l-map{height:100%;width:70%;float:left} */
+
+        /* #r-result{float:right;width:28%;
                }
             #r-result div{
                  margin-top:10px;
-            }
+            } */
+    </style>
 
-		</style>
-
-	</head>
+</head>

@@ -65,18 +65,21 @@ function initMap() {
 
 //备用showPlace
 function showPlace(names) {
-    console.log("可能出错的names：",names);
+    // console.log("可能出错的names：",names);
     if (typeof names == "object" && !(names instanceof Array)) { //地图转换城市后,names会变成一个对象,搜索出错,主动赋值
+        console.log("names又出错了!");
         names = names_backups; //检索基础关键字
+       
     }
     sum_places = new Array();//清空;让sum_places只存当前搜索结果
     var mPoint = map.getCenter();
     var circle = new BMap.Circle(mPoint, 1000, { strokeWeight: 1, fillOpacity: 0.3, strokeOpacity: 0.3 });
     map.addOverlay(circle);
     var local = new BMap.LocalSearch(map, { renderOptions: { map: map, autoViewport: false } });
-    // local.setSearchCompleteCallback(searchComplete);
+    local.setSearchCompleteCallback(searchComplete);
     local.setMarkersSetCallback(markersSet);
-    console.log("names: ",names);
+    // console.log("names: ");
+    // console.log(names);
     local.searchNearby(names, mPoint, 1000);
     // console.log(names);
 
@@ -104,23 +107,24 @@ function markersSet(rs) {
 }
 function searchComplete(rs) {
     console.log("searchComplete 搜索成功")
+    // console.log("searchComplete  结果:");
+    // console.log(rs)
+    // for (var i = 0; i < count; i++) {
+    //     try {
+    //         var position = rs[0].getPoi(i);
+    //         // console.log(position)
+    //         if (position == null) continue;
 
-    for (var i = 0; i < count; i++) {
-        try {
-            var position = rs[0].getPoi(i);
-            // console.log(position)
-            if (position == null) continue;
+    //         // var adddress = position.address;
+    //         var point = position.point;
+    //         var name = position.title
+    //         //console.log(name+": "+":("+point.lat+","+point.lng+")");
 
-            // var adddress = position.address;
-            var point = position.point;
-            var name = position.title
-            //console.log(name+": "+":("+point.lat+","+point.lng+")");
+    //     } catch (error) {
+    //         console.log("searchComplete出错: ", error)
+    //     }
 
-        } catch (error) {
-            console.log("searchComplete出错: ", error)
-        }
-
-    }
+    // }
 }
 
 function setAfterSearchOverlays() {
@@ -142,13 +146,35 @@ function setAfterSearchOverlaysByPoint(p) {
     var mk = new BMap.Marker(p);
     map.addOverlay(mk);
     var point_str = transPointToString(p);
+    var mes = getDetailsByPoint_str(point_str);
     mk.addEventListener("mouseover", function () {
         this.openInfoWindow(showInfoByWindow(point_str));
     });
     mk.addEventListener("mouseout", function () {
         this.closeInfoWindow();
+    });
+    
+    mk.addEventListener("click",function(){
+        
+        window.open(mes.url);
     })
 
+}
+
+function getDetailsByUid(uid){
+    var c;
+    $.ajax({
+        type: "get",
+        url: "/get_details_by_uid",
+        data: {"uid":uid},
+        async:false,
+        dataType: "json",
+        success: function (response) {
+            c=response.result
+            
+        }
+    });
+    return c;
 }
 
 function transPointToString(p) {
@@ -194,9 +220,9 @@ function getCurrentMarker(point) {
 function showInfoByWindow(point_str) {
 
     message = getDetailsByPoint_str(point_str) //message : {place:"",brief:"",image:"",distance:""}
-    sContent = "<h4 style='margin:0 0 5px 0;padding:0.2em 0'>(" + ") </br>距离我：" + message.distance + "公里</br>" + message.place + "</h4>" +
-        "<img style='float:right;margin:4px' id='imgDemo' src='" + message.image + "' width='139' height='104' title='" + message.place + "'/>" +
-        "<p style='margin:0;line-height:1.5;font-size:13px;text-indent:2em'>" + message.brief + "," + message.address + "</p>" +
+    sContent = "<h4 style='margin:0 0 5px 0;padding:0.2em 0'>(" + ") </br>距离我：" + message.distance + "公里</br>" +message.telephone+","+ message.name + "</h4>" +
+        "<img style='float:right;margin:4px' id='imgDemo' src='" + message.image + "' width='139' height='104' title='" + message.name + "'/>" +
+        "<p style='margin:0;line-height:1.5;font-size:13px;text-indent:2em'>"  + "," + message.address + "</p>" +
         "</div>";
     
     var opts = {
@@ -222,14 +248,32 @@ function showInfoByWindow(point_str) {
 //获取信息????????????
 function getDetailsByPoint_str(point_str) {
     var info = sum_places[point_str];
+    var mes = getDetailsByUid(info.uid);
+    console.log(mes)
     var point = transStringToPoint(point_str);
-    
-    return {
-        "place": info.title,
-        "brief": info.url,
-        "image": "http://pcsv0.map.bdimg.com/pr/?qt=poiprv&uid=65e1ee886c885190f60e77ff&width=323&height=101&quality=80&fovx=200",
-        "distance": getDistance(point, currentPoint)
-    };
+    var image_url="http://webmap3.map.bdimg.com/maps/services/thumbnails?&height=253&quality=70&src=http%3A%2F%2Fdimg04.c-ctrip.com%2Fimages%2Fhotel%2F915000%2F914406%2F0f9a278b341b46268578b82ec8b212ed_R_1080_540.jpg"
+    if (typeof mes == "undefined"){ // 如果mes响应无结果就重新发起请求
+        setTimeout(() => {
+            console.log("mes 无结果")
+            getDetailsByPoint_str(point_str);
+        }, 1000);
+    }else{
+        return {
+            "name": mes.name,
+            "url": mes.detail_info.detail_url,
+            "image": image_url,
+            "address":mes.address,
+            "telephone":mes.telephone,
+            "distance": getDistance(point, currentPoint)
+        };
+    }
+    // return {
+    //     "name": info.title,
+    //     "url": info.detailUrl,
+    //     "image": image_url,
+    //     "address":info.address,
+    //     "distance": getDistance(point, currentPoint)
+    // };
 }
 
 function getAddress(point) {
