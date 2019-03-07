@@ -20,6 +20,5 @@ from myMap import views
 urlpatterns = [
     path("index/", views.index, name="index"),
     path("get_details_by_uid/", views.getDetailsByuid, name="get_details_by_uid"),
-    path("trans_data/",views.transData,name="trans_data"),
     path("admin/", admin.site.urls),
 ]

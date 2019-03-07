@@ -30,9 +30,3 @@ def getDetailsByuid(request):
             print("插入出错: ",e)
         finally:
             return HttpResponse(r)
-
-def transData(request):
-    # data = json.loads(request.body)
-    data=request
-    print("transData****:  ",data)
-    return render(request,"index_left.html",{"info":"33"})

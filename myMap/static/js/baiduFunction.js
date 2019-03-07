@@ -108,11 +108,11 @@ function getDetailsByUid(uid){
             }
         }
     });
-    transData(data);
+    detailWindow(data);
     return data;
 }
 
-function transData(data){
+function detailWindow(data){
     var name=data.name;
     $("#name").html(name);
     var address=data.address;
