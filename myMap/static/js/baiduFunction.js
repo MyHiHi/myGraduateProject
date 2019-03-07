@@ -196,7 +196,6 @@ function getCurrentMarker(point) {
     var mk = new BMap.Marker(point);
     var gif_url = "http://www.yantiansf.cn/mapImage/1.gif"
     var myIcon = new BMap.Icon(gif_url, new BMap.Size(32, 32));
-    // mk.setAnimation(BMAP_ANIMATION_BOUNCE);
     mk.setIcon(myIcon);
     mk.enableDragging();
     return mk;
@@ -223,7 +222,7 @@ function showInfoByWindow(point_str) {
 
 }
 
-//获取信息????????????
+//获取信息
 function getDetailsByPoint_str(point_str) {
     var info = sum_places[point_str];
     var mes = getDetailsByUid(info.uid);
@@ -259,11 +258,9 @@ function getDetailsByPoint_str(point_str) {
 function getAddress(point) {
     geoc.getLocation(point, function (rs) {
         var addComp = rs.addressComponents;
-        //console.log(addComp.province + ", " + addComp.city + ", " + addComp.district + ", " + addComp.street + ", " + addComp.streetNumber)
         address = addComp.province + ", " + addComp.city + ", " + addComp.district + ", " + addComp.street + ", " + addComp.streetNumber
         return addComp.province + ", " + addComp.city + ", " + addComp.district + ", " + addComp.street + ", " + addComp.streetNumber;
-        //console.log(address)
-        // return address;
+      
     });
 }
 
@@ -273,11 +270,9 @@ function getDistance(point1, point2) {
     return (map.getDistance(point1, point2) / 1000).toFixed(2);
 }
 
-///////////////////////////////////////////////////////////////////////////////////////////////
 function changePlace(p) {
 
     names.push(examples[p]);
-    //local.searchNearby(names, map.getBounds());
     showPlace(names);
     names.pop();
 

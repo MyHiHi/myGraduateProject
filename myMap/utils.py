@@ -41,17 +41,6 @@ class Manager(object):
         dict["address"] = row[4]
         dict["telephone"] = row[5]
         dict["img_url"] = row[6]
-        # dict["price"] = row[7]
-        # dict["detail_url"] = row[9]
-        # dict["level"] = row[10]
-        # dict["overall_rating"] = row[11]
-        # dict["service_rating"] = row[12]
-        # dict["hygiene_rating"] = row[13]
-        # dict["facility_rating"] = row[14]
-        # dict["hotel_facility"] = row[15]
-        # dict["hotel_service"] = row[16]
-        # dict["inner_facility"] = row[17]
-
         dict["detail_info"]={"detail_url":row[9],"facility_rating":row[14],
         "hygiene_rating":row[13],"overall_rating":row[11],"price":row[7],
         "service_rating":row[12],"level":row[10],"hotel_facility":row[15],
@@ -136,7 +125,6 @@ class Manager(object):
         # image_url未获取到
         img_url=self.checkError(image_url),
         price=self.checkError(r.get("detail_info").get("price")),
-        # print("返回信息: ",lng_lat,name,address,telephone,img_url,price)
         try:
             self.saveToDetail_info(uid,detail_url,level,
             overall_rating,service_rating,hygiene_rating,facility_rating,
@@ -193,9 +181,6 @@ class Manager(object):
         except Exception as e:
             print("连接MySQL错误: ", e)
             return None
-
-
-    # 必须在saveToBasic_info之前插入
     def saveToDetail_info(self,
         uid,
         detail_url,

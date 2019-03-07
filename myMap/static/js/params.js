@@ -55,16 +55,6 @@ var ac = new BMap.Autocomplete(
 		,"location" : map
 	});//建立一个自动完成的对象
 
-
-// var local = new BMap.LocalSearch(map, {
-// 		renderOptions:{map: map, autoViewport:true},
-// //    pageCapacity:3,
-//     onSearchComplete:function(rs){
-//             console.log("tests")
-// 		    console.log("&*& "+rs)
-//     }
-// 	}); //本地检索
-
 geolocationControl.addEventListener("locationSuccess", function(r){
             var mk = getCurrentMarker(r.point);
 			map.addOverlay(mk);
