@@ -34,12 +34,12 @@ function showPlace(names) {
     }
     sum_places = new Array();//清空;让sum_places只存当前搜索结果
     var mPoint = map.getCenter();
-    var circle = new BMap.Circle(mPoint, 1000, { strokeWeight: 1, fillOpacity: 0.3, strokeOpacity: 0.3 });
+    var circle = new BMap.Circle(mPoint, 1500, { strokeWeight: 1, fillOpacity: 0.3, strokeOpacity: 0.3 });
     map.addOverlay(circle);
     var local = new BMap.LocalSearch(map, { renderOptions: { map: map, autoViewport: false } });
     local.setSearchCompleteCallback(searchComplete);
     local.setMarkersSetCallback(markersSet);
-    local.searchNearby(names, mPoint, 1000);
+    local.searchNearby(names, mPoint, 1500);
 
 }
 function markersSet(rs) {
