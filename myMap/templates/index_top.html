@@ -1,21 +1,26 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
-<head>
+<head >
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
     <title>地图展示</title>
 
     {% load staticfiles %}
-
+    <link rel="stylesheet" href="{% static 'vendor/simple-line-icons/css/simple-line-icons.css'%}">
+    <link rel="stylesheet" href="{% static '/vendor/font-awesome/css/fontawesome-all.min.css'%}">
+    <link rel="stylesheet" href="{% static 'css/styles.css'%}">
 
     <script type="text/javascript" src="{% static 'js/jquery-1.11.3.min.js' %}"></script>
     <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=DfPUKIDaRFpXtvAv1QqZBpS6D6SQwyMB"></script>
 
     <script type="text/javascript" src="{% static 'js/params.js' %}"></script>
     <script type="text/javascript" src="{% static 'js/baiduFunction.js' %}"></script>
-
-
+    <script type="text/javascript" src="{% static 'vendor/popper.js/popper.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'vendor/bootstrap/js/bootstrap.min.js' %}"></script>
+     <script type="text/javascript" src="{% static 'js/carbon.js' %}"></script> 
+    <!-- <script type="text/javascript" src="{% static 'js/demo.js' %}"></script> -->
     <style type="text/css">
         body,
         html,
@@ -36,7 +41,7 @@
 
         #place_select {
             text-align: center;
-            left:32%;
+            left:40%;
             top:3%;
             position: absolute;
             z-index: 9999;
@@ -58,15 +63,15 @@
             position:absolute;
             z-index: 9999;
         }
-        /* 原先的 */
-
-        /* #l-map{height:100%;width:70%;float:left} */
-
-        /* #r-result{float:right;width:28%;
-               }
-            #r-result div{
-                 margin-top:10px;
-            } */
-    </style>
+         .sidebar{
+            width:20%;
+          
+        }
+        .map_right{
+            margin-left: 20%;
+            width: 100%;
+            /* height: 1756% */
+        }
+    </style> 
 
 </head>

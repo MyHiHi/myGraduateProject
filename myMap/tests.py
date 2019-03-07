@@ -223,16 +223,18 @@ SHBrowseHotel:cn=40101009,,,,,,;40101131,,,,,,;90050071,,,,,,;&
 ShHotel:InDate=2019-02-16&OutDate=2019-02-17
 """
 
-v = cookies.split("\n")
-my_cookie = {}
-for i in v:
-    c = i.split(":")
-    if len(c) > 1:
-        my_cookie[c[0]] = c[1]
-print(my_cookie)
+# v = cookies.split("\n")
+# my_cookie = {}
+# for i in v:
+#     c = i.split(":")
+#     if len(c) > 1:
+#         my_cookie[c[0]] = c[1]
+# print(my_cookie)
 
-import requests
+# import requests
 
-url = "http://hotel.elong.com/"
-r = requests.get(url=url,cookies=my_cookie)
-print(r.text)
+# url = "http://hotel.elong.com/"
+# r = requests.get(url=url,cookies=my_cookie)
+# print(r.text)
+
+print(list((("aaa",))))

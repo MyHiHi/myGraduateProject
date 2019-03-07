@@ -18,50 +18,11 @@ function initMap() {
     map.addControl(mapTypeControl);
     map.addControl(overviewMapControl);
     map.addControl(navigationControl);
-    // map.addEventListener("click", showInfo);
 
     map.addEventListener("dragend", showPlace);
-
-    // map.addEventListener("tilesloaded",setCurrentLocation);
-
-    //    var myKeys = ["酒店", "加油站","旅馆","大学"];
-    // //    var options = {
-    // //      onSearchComplete:
-    // // };
-    // var local = new BMap.LocalSearch(map, {
-    // 	renderOptions:{map: map,autoViewport: true},
-    //        onSearchComplete: function(results){
-    //          if (local.getStatus() == BMAP_STATUS_SUCCESS) {
-    //              // 判断状态是否正确
-    //              console.log(results)
-    //          }
-    //      }
-    // });
-    // local.search(myKeys);
-
-
 }
 
-// function showPlace(names) {
-//     var local = new BMap.LocalSearch(map, {
-//         renderOptions: { map: map, autoViewport: true, selectFirstResult: false },
-//         onSearchComplete: function (rs) {
 
-//             if (local.getStatus() == BMAP_STATUS_SUCCESS) {
-//                 console.log("搜索成功")
-//                 console.log(rs)
-//             }
-//             else {
-//                 console.log("搜索失败 ")
-//                 console.log(rs)
-//             }
-//         }
-//     }); //本地检索
-
-//     local.search(names);
-//     console.log(names + " ^~^%% ")
-
-// }
 
 //备用showPlace
 function showPlace(names) {
@@ -78,15 +39,10 @@ function showPlace(names) {
     var local = new BMap.LocalSearch(map, { renderOptions: { map: map, autoViewport: false } });
     local.setSearchCompleteCallback(searchComplete);
     local.setMarkersSetCallback(markersSet);
-    // console.log("names: ");
-    // console.log(names);
     local.searchNearby(names, mPoint, 1000);
-    // console.log(names);
 
 }
 function markersSet(rs) {
-    // console.log(rs)
-    // map.clearOverlays()
     for (let i in rs) {
         point = rs[i].point;
         point_str = point.lng + "," + point.lat
@@ -95,9 +51,6 @@ function markersSet(rs) {
 
         }
     }
-    // console.log("This : \n",sum_places)
-    // console.log(sum_places.length)
-    // console.log(sum_places["38.865975,115.487819"])
 
     console.log("markersSet后返回数据了**********************")
     count = Object.keys(sum_places).length;
@@ -107,24 +60,6 @@ function markersSet(rs) {
 }
 function searchComplete(rs) {
     console.log("searchComplete 搜索成功")
-    // console.log("searchComplete  结果:");
-    // console.log(rs)
-    // for (var i = 0; i < count; i++) {
-    //     try {
-    //         var position = rs[0].getPoi(i);
-    //         // console.log(position)
-    //         if (position == null) continue;
-
-    //         // var adddress = position.address;
-    //         var point = position.point;
-    //         var name = position.title
-    //         //console.log(name+": "+":("+point.lat+","+point.lng+")");
-
-    //     } catch (error) {
-    //         console.log("searchComplete出错: ", error)
-    //     }
-
-    // }
 }
 
 function setAfterSearchOverlays() {
@@ -138,7 +73,6 @@ function setAfterSearchOverlays() {
 
         setAfterSearchOverlaysByPoint(point)
     }
-    // console.log("结果:",coordinates)
 }
 
 
@@ -150,19 +84,15 @@ function setAfterSearchOverlaysByPoint(p) {
     mk.addEventListener("mouseover", function () {
         this.openInfoWindow(showInfoByWindow(point_str));
     });
-    mk.addEventListener("mouseout", function () {
-        this.closeInfoWindow();
-    });
     
     mk.addEventListener("click",function(){
-        
         window.open(mes.url);
     })
 
 }
 
 function getDetailsByUid(uid){
-    var c;
+    var data;
     $.ajax({
         type: "get",
         url: "/get_details_by_uid",
@@ -170,13 +100,68 @@ function getDetailsByUid(uid){
         async:false,
         dataType: "json",
         success: function (response) {
-            c=response.result
-            
+            if (typeof response.result=="undefined"){
+                data=JSON.parse(response.data)
+                console.log("<><><>")
+            }else{
+                data=response.result
+            }
         }
     });
-    return c;
+    transData(data);
+    return data;
 }
 
+function transData(data){
+    var name=data.name;
+    $("#name").html(name);
+    var address=data.address;
+    $("#address").html(address);
+    var detail_info=data.detail_info; 
+    var detail_url=detail_info.detail_url;
+    $("#detail_url").attr("href",detail_url);
+    var facility_rating=detail_info.facility_rating;
+    $("#facility_rating").html(facility_rating)
+    var hotel_facility=detail_info.hotel_facility;
+    $("#hotel_facility").html(hotel_facility);
+    var hotel_service=detail_info.hotel_service;
+    $("#hotel_service").html(hotel_service)
+    var hygiene_rating=detail_info.hygiene_rating;
+    $("#hygiene_rating").html(hygiene_rating);
+    var inner_facility=detail_info.inner_facility;
+    $("#inner_facility").html(inner_facility)
+    var level=detail_info.level;
+    $("#level").html(level)
+    var overall_rating=detail_info.overall_rating;
+    $("#overall_rating").html(overall_rating)
+    var price=detail_info.price;
+    $("#price").html(price)
+    var service_rating=detail_info.service_rating;
+    $("#service_rating").html(service_rating);
+    var telephone=data.telephone;
+    $("#telephone").html(telephone);
+
+
+
+
+
+
+    // $.get("/trans_data",JSON.stringify(data),function(data){
+    //     console.log("transData:ok")
+    // },"json")
+    // $.ajax({
+    //     type: "get",
+    //     url: "/trans_data",
+    //     data: {"data":JSON.stringify(data)},
+    //     async:false,
+    //     dataType: "json",
+    //     success: function (response) {
+    //         console.log("transData:ok")
+    //     }
+    // });
+
+  
+}
 function transPointToString(p) {
     return p.lng + "," + p.lat;
 }
@@ -220,22 +205,15 @@ function getCurrentMarker(point) {
 function showInfoByWindow(point_str) {
 
     message = getDetailsByPoint_str(point_str) //message : {place:"",brief:"",image:"",distance:""}
-    sContent = "<h4 style='margin:0 0 5px 0;padding:0.2em 0'>(" + ") </br>距离我：" + message.distance + "公里</br>" +message.telephone+","+ message.name + "</h4>" +
-        "<img style='float:right;margin:4px' id='imgDemo' src='" + message.image + "' width='139' height='104' title='" + message.name + "'/>" +
+    sContent = "<h4 style='margin:0 0 5px 0;padding:0.2em 0'>" + "</br>距离我：" + message.distance + "公里</br>" +message.telephone+",<br></h4>" +
+        "<img style='float:right;margin:4px' id='imgDemo' src='" + message.image + "' width='139' height='104' title='" + message.name + "'/><br>" +
         "<p style='margin:0;line-height:1.5;font-size:13px;text-indent:2em'>"  + "," + message.address + "</p>" +
         "</div>";
     
     var opts = {
         width: 250,     // 信息窗口宽度
         height: 300,     // 信息窗口高度
-        title: "Hello",// 信息窗口标题
-        // panel: "panel",         //检索结果面板
-        // enableAutoPan: true,     //自动平移
-        // searchTypes: [
-        //     BMAPLIB_TAB_SEARCH,   //周边检索
-        //     BMAPLIB_TAB_TO_HERE,  //到这里去
-        //     BMAPLIB_TAB_FROM_HERE //从这里出发
-        // ]
+        title: message.name,// 信息窗口标题
 
     }
     var infoWindow = new BMap.InfoWindow(sContent, opts);  // 创建信息窗口对象
@@ -251,7 +229,6 @@ function getDetailsByPoint_str(point_str) {
     var mes = getDetailsByUid(info.uid);
     console.log(mes)
     var point = transStringToPoint(point_str);
-    var image_url="http://webmap3.map.bdimg.com/maps/services/thumbnails?&height=253&quality=70&src=http%3A%2F%2Fdimg04.c-ctrip.com%2Fimages%2Fhotel%2F915000%2F914406%2F0f9a278b341b46268578b82ec8b212ed_R_1080_540.jpg"
     if (typeof mes == "undefined"){ // 如果mes响应无结果就重新发起请求
         setTimeout(() => {
             console.log("mes 无结果")
@@ -261,19 +238,22 @@ function getDetailsByPoint_str(point_str) {
         return {
             "name": mes.name,
             "url": mes.detail_info.detail_url,
-            "image": image_url,
+            "image": mes.img_url,
             "address":mes.address,
             "telephone":mes.telephone,
             "distance": getDistance(point, currentPoint)
         };
     }
-    // return {
-    //     "name": info.title,
-    //     "url": info.detailUrl,
-    //     "image": image_url,
-    //     "address":info.address,
-    //     "distance": getDistance(point, currentPoint)
-    // };
+
+
+    return {
+        "name": "mes.name",
+        "url": "mes.detail_info.detail_url",
+        "image": "image_url",
+        "address":"mes.address",
+        "telephone":"mes.telephone",
+        "distance": getDistance(point, currentPoint)
+    };
 }
 
 function getAddress(point) {
