@@ -8,11 +8,15 @@ from django.conf import settings
 import random,json
 from datetime import datetime
 
-image_url="/static/img/fail.jpg"
+
 
 class Manager(object):
     def __init__(self):
-        self.cursor=connection.cursor()
+        self.cursor=connection.cursor();
+        self.url=settings.INFOURL;
+        self.ak=settings.BAIDUAK;
+        self.fail_image=settings.FAILIMAGE;
+        self.user_agents=settings.USERAGENTS;
 
     def close_cursor(self):
         pass
@@ -27,7 +31,7 @@ class Manager(object):
             row = self.cursor.fetchone()
             return None if row == [] else row
         except Exception as e:
-            print("insertToBasic插入失败",e)
+            print("selectMessageByUid获取数据失败",e)
             return None
         finally:
             self.close_cursor()  
@@ -57,7 +61,7 @@ class Manager(object):
         price = self.check(basic.get("price"))
         uid = self.check(basic.get("uid"))
         sql = "insert into basic(lng_lat,name,address,telephone,\
-            imgurl,price,uid) values('{0}','{1}','{2}','{3}','{4}','{5}',\
+            img_url,price,uid) values('{0}','{1}','{2}','{3}','{4}','{5}',\
             '{6}')".format(
                 lng_lat, name, address, telephone, img_url, price, uid
             )
@@ -105,7 +109,7 @@ class Manager(object):
         uid="".join(r.get("uid")),
         # 返回的是元组:detail_url:('http://api.map.baidu.com/place/detail?uid=\
         # ef1e99ad00360c7431f71d80&output=html&source=placeapi_v2',) 
-        detail_url=self.checkError(r.get("detail_info").get("detail_url")),
+
         level=self.checkError(r.get("detail_info").get("level")),
         overall_rating=self.checkError(r.get("detail_info").get("overall_rating")),
         service_rating=self.checkError(r.get("detail_info").get("service_rating")),
@@ -123,7 +127,14 @@ class Manager(object):
         telephone=self.checkError(r.get("telephone")),
 
         # image_url未获取到
-        img_url=self.checkError(image_url),
+        #image_url最初在这里赋值
+        #c 包含detail_url image_url
+        default_url=self.checkError(r.get("detail_info").get("detail_url"))
+        c = self.getImageAndDetail_urlByUid(uid,default_url)
+        img_url= c.get("image") ,
+        # r.get("detail_info").get("detail_url")
+        detail_url=self.checkError(c.get("xiecheng")),
+
         price=self.checkError(r.get("detail_info").get("price")),
         try:
             self.saveToDetail_info(uid,detail_url,level,
@@ -134,6 +145,10 @@ class Manager(object):
         except Exception as e:
             print("插入数据失败!!!",e)
         
+    def checkImage(self,url):
+        if url==None or url=="":
+            return self.fail_image;
+        return url;
 
     def checkError(self,data):
         try:
@@ -144,18 +159,31 @@ class Manager(object):
             return ""
         # return data if data is not None else None
 
+    def getImageAndDetail_urlByUid(self,uid,default_url):
+        
+        try:
+            if (not isinstance(uid,str)):
+                uid=uid[0];
+            c=json.loads(requests.get(settings.IMAGEURL+uid).text).get("content")["ext"]["detail_info"]
+            i=c["image"]
+            x=c["hotel_ori_info"][0].get("hotel_id").split("_")[1]
+            url=settings.XIECHENG+x+".html"
+        except Exception as e:
+            i=self.fail_image
+            url=default_url
+        finally: 
+            return {"image":i,"xiecheng":url}
 
     def getData(self,uid):
-        url=settings.INFOURL
-        ak=settings.BAIDUAK
+        
         params = {
             "uid": uid,
             "scope": "2",
             "output": "json",
-            "ak": ak,
+            "ak": self.ak,
         }
-        headers = {"User-Agent": random.choice(settings.USERAGENTS)}
-        r = requests.get(url=url, headers=headers, params=params).content
+        headers = {"User-Agent": random.choice(self.user_agents)}
+        r=requests.get(url=self.url, headers=headers, params=params).content
         return r
 
 

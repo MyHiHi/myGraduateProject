@@ -48,7 +48,6 @@ function markersSet(rs) {
         point_str = point.lng + "," + point.lat
         if (sum_places[point_str] == null) {
             sum_places[point_str] = rs[i]
-
         }
     }
 
@@ -102,7 +101,6 @@ function getDetailsByUid(uid){
         success: function (response) {
             if (typeof response.result=="undefined"){
                 data=JSON.parse(response.data)
-                console.log("<><><>")
             }else{
                 data=response.result
             }
@@ -204,11 +202,11 @@ function getCurrentMarker(point) {
 function showInfoByWindow(point_str) {
 
     message = getDetailsByPoint_str(point_str) //message : {place:"",brief:"",image:"",distance:""}
+ 
     sContent = "<h4 style='margin:0 0 5px 0;padding:0.2em 0'>" + "</br>距离我：" + message.distance + "公里</br>" +message.telephone+",<br></h4>" +
         "<img style='float:right;margin:4px' id='imgDemo' src='" + message.image + "' width='139' height='104' title='" + message.name + "'/><br>" +
         "<p style='margin:0;line-height:1.5;font-size:13px;text-indent:2em'>"  + "," + message.address + "</p>" +
         "</div>";
-    
     var opts = {
         width: 250,     // 信息窗口宽度
         height: 300,     // 信息窗口高度
@@ -225,8 +223,9 @@ function showInfoByWindow(point_str) {
 //获取信息
 function getDetailsByPoint_str(point_str) {
     var info = sum_places[point_str];
-    var mes = getDetailsByUid(info.uid);
-    console.log(mes)
+    var uid=info.uid
+    var mes = getDetailsByUid(uid);
+    // console.log("后台返回的json: ",mes)
     var point = transStringToPoint(point_str);
     if (typeof mes == "undefined"){ // 如果mes响应无结果就重新发起请求
         setTimeout(() => {
@@ -234,25 +233,19 @@ function getDetailsByPoint_str(point_str) {
             getDetailsByPoint_str(point_str);
         }, 1000);
     }else{
-        return {
-            "name": mes.name,
-            "url": mes.detail_info.detail_url,
-            "image": mes.img_url,
-            "address":mes.address,
-            "telephone":mes.telephone,
-            "distance": getDistance(point, currentPoint)
-        };
+        if (typeof mes.img_url=="undefined"){
+            console.log("Uid:   > ",mes.uid)
+        }
+            return {
+                "name": mes.name,
+                "url": mes.detail_info.detail_url,
+                "image": mes.img_url,
+                "address":mes.address,
+                "telephone":mes.telephone,
+                "distance": getDistance(point, currentPoint)
+            };
+        
     }
-
-
-    return {
-        "name": "mes.name",
-        "url": "mes.detail_info.detail_url",
-        "image": "image_url",
-        "address":"mes.address",
-        "telephone":"mes.telephone",
-        "distance": getDistance(point, currentPoint)
-    };
 }
 
 function getAddress(point) {

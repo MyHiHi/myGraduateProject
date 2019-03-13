@@ -47,30 +47,30 @@ import pdb
 
 # print(time.time()-time1)
 
-from functools import wraps, reduce
+# from functools import wraps, reduce
 
 
-class login(object):
-    def __init__(self):
-        pass
+# class login(object):
+#     def __init__(self):
+#         pass
 
-    def __call__(self, func):
-        @wraps(func)
-        def wrapp(*args, **kwargs):
-            print(func.__name__ + "was called")
-            num = args[0]
-            # print(num)
-            a, b = 1, 1
-            for i in range(num):
-                print(a)
-                a, b = b, a + b
-            func(*args, **kwargs)
-            self.notify(*args, **kwargs)
+#     def __call__(self, func):
+#         @wraps(func)
+#         def wrapp(*args, **kwargs):
+#             print(func.__name__ + "was called")
+#             num = args[0]
+#             # print(num)
+#             a, b = 1, 1
+#             for i in range(num):
+#                 print(a)
+#                 a, b = b, a + b
+#             func(*args, **kwargs)
+#             self.notify(*args, **kwargs)
 
-        return wrapp
+#         return wrapp
 
-    def notify(self, *args, **kwargs):
-        print("{0[0]}号 执行 {0[1]}".format(args))
+#     def notify(self, *args, **kwargs):
+#         print("{0[0]}号 执行 {0[1]}".format(args))
 
 
 # def login(func):
@@ -237,4 +237,15 @@ ShHotel:InDate=2019-02-16&OutDate=2019-02-17
 # r = requests.get(url=url,cookies=my_cookie)
 # print(r.text)
 
-print(list((("aaa",))))
+# print(list((("aaa",))))
+
+# from models import Basic
+# BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+# print(BASE_DIR)
+# print(Basic.objects)
+
+import requests
+url="http://api.map.baidu.com/telematics/v3/weather?location=保定&output=json&ak=dGa3ZcGGEdYLqdwuj4In9PNDtdC3BQ8W"
+url="http://api.map.baidu.com/telematics/v3/weather?location=北京&output=json&ak=E4805d16520de693a3fe707cdc962045"
+c=requests.get(url)
+print(c.content.decode("utf-8"))

@@ -31,6 +31,12 @@ USERAGENTS = [
 
 # 获取酒店信息的目标接口
 INFOURL = "http://api.map.baidu.com/place/v2/detail"
+# 获取酒店图片的链接 获取的是字符串 需要转为json
+IMAGEURL="http://map.baidu.com/detail?qt=ninf&uid="
+# 携程酒店入口 拼接XIECHENG+id+".html"
+XIECHENG="http://hotels.ctrip.com/hotel/"
+# 默认失败的照片
+FAILIMAGE="/static/img/fail.jpg"
 # 百度地图api的ak 浏览器端
 BAIDUAK = "DfPUKIDaRFpXtvAv1QqZBpS6D6SQwyMB"
 # 配置mysql
@@ -148,3 +154,4 @@ STATICFILES_FINDERS = (
     "django.contrib.staticfiles.finders.FileSystemFinder",
     "django.contrib.staticfiles.finders.AppDirectoriesFinder",
 )
+

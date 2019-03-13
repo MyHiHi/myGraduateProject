@@ -28,7 +28,6 @@ class Detail(models.Model):
     uid = models.CharField(primary_key=True, db_index=True, max_length=200)
     detail_url = models.URLField(blank=True)
     level = models.CharField(max_length=20, blank=True)
-
     overall_rating = models.CharField(max_length=10, blank=True)
     service_rating = models.CharField(max_length=10, blank=True)
     hygiene_rating = models.CharField(max_length=10, blank=True)

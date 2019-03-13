@@ -22,11 +22,16 @@ def getDetailsByuid(request):
         "data":data
         }))
     else:
-        r = manager.getData(uid)
-        
+        r = manager.getData(uid)        
         try:
             manager.insert(r)
         except Exception as e:
             print("插入出错: ",e)
         finally:
             return HttpResponse(r)
+# def getImageUrl(request):
+#     uid = request.GET.get("uid")
+#     print("MMMMMMMM: ",uid)
+#     return HttpResponse(manager.getImageAndDetail_urlByUid(str(uid)).get("image"))
+#     # return manager.getImageAndDetail_urlByUid(uid).get("image")
+
