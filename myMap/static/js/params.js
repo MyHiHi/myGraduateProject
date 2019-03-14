@@ -9,7 +9,7 @@ var init_class = 16.5;
 var sum_places = new Array();//存储所有结果的字典
 var current_places = new Array();//当前本地搜索结果的字典
 var address="";//point转为的地址
-
+var Circle_meters=1500;//搜索中的范围 : 米
 var geolocationControl = new BMap.GeolocationControl({showAddressBar:false,enableAutoLocation:true});//定位控件
 
 var geoc = new BMap.Geocoder();//地址解析
