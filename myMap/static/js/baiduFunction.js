@@ -138,27 +138,6 @@ function detailWindow(data){
     $("#service_rating").html(service_rating);
     var telephone=data.telephone;
     $("#telephone").html(telephone);
-
-
-
-
-
-
-    // $.get("/trans_data",JSON.stringify(data),function(data){
-    //     console.log("transData:ok")
-    // },"json")
-    // $.ajax({
-    //     type: "get",
-    //     url: "/trans_data",
-    //     data: {"data":JSON.stringify(data)},
-    //     async:false,
-    //     dataType: "json",
-    //     success: function (response) {
-    //         console.log("transData:ok")
-    //     }
-    // });
-
-  
 }
 function transPointToString(p) {
     return p.lng + "," + p.lat;
@@ -220,8 +199,10 @@ function showInfoByWindow(point_str) {
 
 }
 
+var c=1;//控制台显示条数用的
 //获取信息
 function getDetailsByPoint_str(point_str) {
+    
     var info = sum_places[point_str];
     var uid=info.uid
     var mes = getDetailsByUid(uid);
@@ -233,9 +214,11 @@ function getDetailsByPoint_str(point_str) {
             getDetailsByPoint_str(point_str);
         }, 1000);
     }else{
-        if (typeof mes.img_url=="undefined"){
-            console.log("Uid:   > ",mes.uid)
-        }
+        // if (typeof mes.img_url=="undefined"){
+        //     console.log("Uid:   > ",mes.uid)
+        // }
+        console.log("后台返回数据"+c+": ",mes);
+        c+=1;
             return {
                 "name": mes.name,
                 "url": mes.detail_info.detail_url,
