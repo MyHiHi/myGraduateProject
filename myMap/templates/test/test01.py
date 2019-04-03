@@ -35,9 +35,7 @@ def paint_wordcloud():
         plt.show()
 
 if __name__=="__main__":
-        # paint_wordcloud()
-        c1=b'hello'
-        c2='您好'.encode()
-        print('c2: '+str(c2)[1:].strip("'"),type(c2))
+        paint_wordcloud()
+        
 
         
