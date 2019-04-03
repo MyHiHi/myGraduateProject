@@ -1,21 +1,43 @@
-import requests,re,json
-url="http://map.baidu.com/detail?qt=ninf&uid=96bbc0fbf8b4c9eba1d23023"
-# "(?<=<img src=\").*(?=\" class=\"head-img\"/>)" 
- 
-# c= requests.get(url).content.decode('unicode_escape')  
-# # x = re.search("'(.*?)?ex_track=bd_ditu",c)
-# x=json.loads(c)
-# print(x.get("content")["ext"]["detail_info"]["image"])
-# url="http://map.baidu.com/detail?qt=ninf&uid="
-def getImageByUid(uid):
-        c=json.loads(requests.get(url+uid).text)
-        print(c)
+import pandas as pd
+import jieba
+from imageio import imread
+from wordcloud import WordCloud
+import matplotlib.pyplot as plt
+# from mat
+f = pd.read_csv("D:\\lagou_jobs.csv", encoding="utf-8")["职位名"]
+# print(f.describe())
+# print(f)
+def get_word(f):             
+        import re
+        text=""
+        p=re.findall("'(.*?)'",f)
+        for i in p:
+                text+=i
+        # return text
+        return f
 
-        # ["ext"]["detail_info"]
-        # return c["image"]
-        # x=c["hotel_ori_info"]
-        # return x[0].get("hotel_id").split("_")[1]
-    
+def paint_wordcloud():
+        label_str=""
+        for line in f:
+                label_str+=get_word(line)
+        print(label_str)
+        cut_text="".join(jieba.cut(label_str))
+        word_cloud=WordCloud(
+                font_path='simhei.ttf',
+                background_color='white',
+                mask=imread("D:\\Documents\\Pictures\\cloud.png"),
+                max_words=1000,
+                max_font_size=100
+        ).generate(cut_text)
+        word_cloud.to_file('D:\\Documents\\Pictures\\word_cloud.jpg')
+        plt.imshow(word_cloud)
+        plt.axis('off')
+        plt.show()
 
-print(getImageByUid("7dc42c4a62e4a1649fec2b22"))
-# print(type(type(1)))
+if __name__=="__main__":
+        # paint_wordcloud()
+        c1=b'hello'
+        c2='您好'.encode()
+        print('c2: '+str(c2)[1:].strip("'"),type(c2))
+
+        

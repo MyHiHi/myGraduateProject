@@ -9,9 +9,9 @@ var init_class = 16.5;
 var sum_places = new Array();//存储所有结果的字典
 var current_places = new Array();//当前本地搜索结果的字典
 var address="";//point转为的地址
-var Circle_meters=1500;//搜索中的范围 : 米
+var Circle_meters=1000;//搜索中的范围 : 米
 var geolocationControl = new BMap.GeolocationControl({showAddressBar:false,enableAutoLocation:true});//定位控件
-
+var current_gif="http://www.yantiansf.cn/mapImage/1.gif" //当前位置标签图案
 var geoc = new BMap.Geocoder();//地址解析
 
 var mapTypeControl = new BMap.MapTypeControl({

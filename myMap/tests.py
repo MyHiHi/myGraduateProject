@@ -245,7 +245,17 @@ ShHotel:InDate=2019-02-16&OutDate=2019-02-17
 # print(Basic.objects)
 
 import requests
-url="http://api.map.baidu.com/telematics/v3/weather?location=保定&output=json&ak=dGa3ZcGGEdYLqdwuj4In9PNDtdC3BQ8W"
-url="http://api.map.baidu.com/telematics/v3/weather?location=北京&output=json&ak=E4805d16520de693a3fe707cdc962045"
-c=requests.get(url)
-print(c.content.decode("utf-8"))
+# url="http://api.map.baidu.com/telematics/v3/weather?location=保定&output=json&ak=dGa3ZcGGEdYLqdwuj4In9PNDtdC3BQ8W"
+# url="http://api.map.baidu.com/telematics/v3/weather?location=北京&output=json&ak=E4805d16520de693a3fe707cdc962045"
+# c=requests.get(url)
+# print(c.content.decode("utf-8"))
+
+# url="https://www.tubeninja.net/zh-hans/?url=https%3A%2F%2Fwww.pornhub.com%2Fview_video.php%3Fviewkey%3Dph599cbc4665dc7"
+from selenium import webdriver
+
+url="http://www.baidu.com"
+c = webdriver.Chrome()
+c.get(url)
+from time import sleep  
+# sleep(5)
+print(c.page_source)

@@ -18,19 +18,17 @@ function initMap() {
     map.addControl(mapTypeControl);
     map.addControl(overviewMapControl);
     map.addControl(navigationControl);
-
     map.addEventListener("dragend", showPlace);
 }
 
 
 
-//备用showPlace
+//showPlace
 function showPlace(names) {
-    // console.log("可能出错的names：",names);
     if (typeof names == "object" && !(names instanceof Array)) { //地图转换城市后,names会变成一个对象,搜索出错,主动赋值
         console.log("names又出错了!");
         names = names_backups; //检索基础关键字
-       
+
     }
     sum_places = new Array();//清空;让sum_places只存当前搜索结果
     var mPoint = map.getCenter();
@@ -54,7 +52,7 @@ function markersSet(rs) {
     console.log("markersSet后返回数据了**********************")
     count = Object.keys(sum_places).length;
     setCount(count);
-    console.log("sum_places： ",sum_places);
+    console.log("sum_places： ", sum_places);
     setAfterSearchOverlays();
 }
 function searchComplete(rs) {
@@ -62,14 +60,12 @@ function searchComplete(rs) {
 }
 
 function setAfterSearchOverlays() {
-
     map.clearOverlays();
     var current_mk = getCurrentMarker(currentPoint);
     map.addOverlay(current_mk);//加上当前定位
     for (var i in sum_places) {
         coordinates = i.split(",");
         var point = new BMap.Point(coordinates[0], coordinates[1]);
-
         setAfterSearchOverlaysByPoint(point)
     }
 }
@@ -83,26 +79,26 @@ function setAfterSearchOverlaysByPoint(p) {
     mk.addEventListener("mouseover", function () {
         this.openInfoWindow(showInfoByWindow(point_str));
     });
-    
-    mk.addEventListener("click",function(){
+
+    mk.addEventListener("click", function () {
         window.open(mes.url);
     })
 
 }
 
-function getDetailsByUid(uid){
+function getDetailsByUid(uid) {
     var data;
     $.ajax({
         type: "get",
         url: "/get_details_by_uid",
-        data: {"uid":uid},
-        async:false,
+        data: { "uid": uid },
+        async: false,
         dataType: "json",
         success: function (response) {
-            if (typeof response.result=="undefined"){
-                data=JSON.parse(response.data)
-            }else{
-                data=response.result
+            if (typeof response.result == "undefined") {
+                data = JSON.parse(response.data)
+            } else {
+                data = response.result
             }
         }
     });
@@ -110,33 +106,33 @@ function getDetailsByUid(uid){
     return data;
 }
 
-function detailWindow(data){
-    var name=data.name;
+function detailWindow(data) {
+    var name = data.name;
     $("#name").html(name);
-    var address=data.address;
+    var address = data.address;
     $("#address").html(address);
-    var detail_info=data.detail_info; 
-    var detail_url=detail_info.detail_url;
-    $("#detail_url").attr("href",detail_url);
-    var facility_rating=detail_info.facility_rating;
+    var detail_info = data.detail_info;
+    var detail_url = detail_info.detail_url;
+    $("#detail_url").attr("href", detail_url);
+    var facility_rating = detail_info.facility_rating;
     $("#facility_rating").html(facility_rating)
-    var hotel_facility=detail_info.hotel_facility;
+    var hotel_facility = detail_info.hotel_facility;
     $("#hotel_facility").html(hotel_facility);
-    var hotel_service=detail_info.hotel_service;
+    var hotel_service = detail_info.hotel_service;
     $("#hotel_service").html(hotel_service)
-    var hygiene_rating=detail_info.hygiene_rating;
+    var hygiene_rating = detail_info.hygiene_rating;
     $("#hygiene_rating").html(hygiene_rating);
-    var inner_facility=detail_info.inner_facility;
+    var inner_facility = detail_info.inner_facility;
     $("#inner_facility").html(inner_facility)
-    var level=detail_info.level;
+    var level = detail_info.level;
     $("#level").html(level)
-    var overall_rating=detail_info.overall_rating;
+    var overall_rating = detail_info.overall_rating;
     $("#overall_rating").html(overall_rating)
-    var price=detail_info.price;
+    var price = detail_info.price;
     $("#price").html(price)
-    var service_rating=detail_info.service_rating;
+    var service_rating = detail_info.service_rating;
     $("#service_rating").html(service_rating);
-    var telephone=data.telephone;
+    var telephone = data.telephone;
     $("#telephone").html(telephone);
 }
 function transPointToString(p) {
@@ -150,6 +146,7 @@ function transStringToPoint(str) {
 function setCount(num) {
     $("#count").html(num)
 }
+
 //开始定位
 //unused
 function setCurrentLocation() {
@@ -171,7 +168,7 @@ function setCurrentLocation() {
 
 function getCurrentMarker(point) {
     var mk = new BMap.Marker(point);
-    var gif_url = "http://www.yantiansf.cn/mapImage/1.gif"
+    var gif_url = current_gif
     var myIcon = new BMap.Icon(gif_url, new BMap.Size(32, 32));
     mk.setIcon(myIcon);
     mk.enableDragging();
@@ -181,10 +178,10 @@ function getCurrentMarker(point) {
 function showInfoByWindow(point_str) {
 
     message = getDetailsByPoint_str(point_str) //message : {place:"",brief:"",image:"",distance:""}
- 
-    sContent = "<h4 style='margin:0 0 5px 0;padding:0.2em 0'>" + "</br>距离我：" + message.distance + "公里</br>" +message.telephone+",<br></h4>" +
+
+    sContent = "<h4 style='margin:0 0 5px 0;padding:0.2em 0'>" + "</br>距离我：" + message.distance + "公里</br>" + message.telephone + ",<br></h4>" +
         "<img style='float:right;margin:4px' id='imgDemo' src='" + message.image + "' width='139' height='104' title='" + message.name + "'/><br>" +
-        "<p style='margin:0;line-height:1.5;font-size:13px;text-indent:2em'>"  + "," + message.address + "</p>" +
+        "<p style='margin:0;line-height:1.5;font-size:13px;text-indent:2em'>" + "," + message.address + "</p>" +
         "</div>";
     var opts = {
         width: 250,     // 信息窗口宽度
@@ -199,35 +196,31 @@ function showInfoByWindow(point_str) {
 
 }
 
-var c=1;//控制台显示条数用的
+var c = 1;//控制台显示条数用的
 //获取信息
 function getDetailsByPoint_str(point_str) {
-    
+
     var info = sum_places[point_str];
-    var uid=info.uid
+    var uid = info.uid
     var mes = getDetailsByUid(uid);
-    // console.log("后台返回的json: ",mes)
     var point = transStringToPoint(point_str);
-    if (typeof mes == "undefined"){ // 如果mes响应无结果就重新发起请求
+    if (typeof mes == "undefined") { // 如果mes响应无结果就重新发起请求
         setTimeout(() => {
             console.log("mes 无结果")
             getDetailsByPoint_str(point_str);
         }, 1000);
-    }else{
-        // if (typeof mes.img_url=="undefined"){
-        //     console.log("Uid:   > ",mes.uid)
-        // }
-        console.log("后台返回数据"+c+": ",mes);
-        c+=1;
-            return {
-                "name": mes.name,
-                "url": mes.detail_info.detail_url,
-                "image": mes.img_url,
-                "address":mes.address,
-                "telephone":mes.telephone,
-                "distance": getDistance(point, currentPoint)
-            };
-        
+    } else {
+        console.log("后台返回数据" + c + ": ", mes);
+        c += 1;
+        return {
+            "name": mes.name,
+            "url": mes.detail_info.detail_url,
+            "image": mes.img_url,
+            "address": mes.address,
+            "telephone": mes.telephone,
+            "distance": getDistance(point, currentPoint)
+        };
+
     }
 }
 
@@ -236,7 +229,7 @@ function getAddress(point) {
         var addComp = rs.addressComponents;
         address = addComp.province + ", " + addComp.city + ", " + addComp.district + ", " + addComp.street + ", " + addComp.streetNumber
         return addComp.province + ", " + addComp.city + ", " + addComp.district + ", " + addComp.street + ", " + addComp.streetNumber;
-      
+
     });
 }
 
@@ -247,7 +240,6 @@ function getDistance(point1, point2) {
 }
 
 function changePlace(p) {
-
     names.push(examples[p]);
     showPlace(names);
     names.pop();
