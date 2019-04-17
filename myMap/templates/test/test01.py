@@ -34,8 +34,31 @@ def paint_wordcloud():
         plt.axis('off')
         plt.show()
 
-if __name__=="__main__":
-        paint_wordcloud()
+# class TestMe(object):
+#         __instance=None
+#         def __init__(self,name,age,names={}):
+#                 names[name]=age;
+#                 print("names: ",names)
+#         def __str__(self):
+#                 return "MMMMM "
+#         def __new__(cls,name,age,names={}):
+#                 if not cls.__instance:
+#                         cls.__instance=object.__new__(cls)
+#                 return cls.__instance
+# name=[11]
+# def test(s):
+#         name[:].append(s)
+
+if __name__=="__main__":                
+        # paint_wordcloud()
+        # p1=TestMe("信息",11)
+        # p2=TestMe("密码",22)
+        # print(id(p1),id(p2))
+        # print(p1,p2)
+        # test(112);
+        # print(name)
+
+        
         
 
         

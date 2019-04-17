@@ -9,11 +9,20 @@ var init_class = 16.5;
 var sum_places = new Array();//存储所有结果的字典
 var current_places = new Array();//当前本地搜索结果的字典
 var address="";//point转为的地址
-var Circle_meters=1000;//搜索中的范围 : 米
+var Circle_meters=1500;//搜索中的范围 : 米
+
+var nearby_meters=500;//周围500米
+var nearby_places=new Array() //周围500米
+var nearby_markers=new Array()
+
+
 var geolocationControl = new BMap.GeolocationControl({showAddressBar:false,enableAutoLocation:true});//定位控件
 var current_gif="http://www.yantiansf.cn/mapImage/1.gif" //当前位置标签图案
 var geoc = new BMap.Geocoder();//地址解析
-
+var c=0;//显示第几条结果
+var bounds=null //当前视图的范围
+var conditions=new Array();//存储后台返回的结果数组
+var condition_places=new Array();//存储筛选对conditions条件之后的结果
 var mapTypeControl = new BMap.MapTypeControl({
 		mapTypes: [
 			BMAP_NORMAL_MAP,
@@ -44,12 +53,12 @@ var cityListControl = new BMap.CityListControl({
 			c_location = rs.addressComponents.city;
 			map.centerAndZoom(map.getCenter(),init_class)
 			showPlace(names);
-
             //console.log(c_location)
         })
     }
 });//城市列表控件
 
+// 关键字搜素js代码
 var ac = new BMap.Autocomplete(
 		{"input" : "suggestId"
 		,"location" : map
@@ -98,7 +107,6 @@ ac.addEventListener("onhighlight", function(e) {  //鼠标放在下拉列表上�
 	});
 
 function setPlace(){
-		//map.clearOverlays();    //清除地图上所有覆盖物
 		function myFun(){
 			var pp = local.getResults().getPoi(0).point;    //获取第一个智能搜索的结果
 			map.centerAndZoom(pp, init_class);

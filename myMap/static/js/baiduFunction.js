@@ -25,22 +25,36 @@ function initMap() {
 
 //showPlace
 function showPlace(names) {
+    c = 0//搜索结果重置为0
     if (typeof names == "object" && !(names instanceof Array)) { //地图转换城市后,names会变成一个对象,搜索出错,主动赋值
         console.log("names又出错了!");
         names = names_backups; //检索基础关键字
-
     }
     sum_places = new Array();//清空;让sum_places只存当前搜索结果
     var mPoint = map.getCenter();
-    var circle = new BMap.Circle(mPoint, Circle_meters, { strokeWeight: 1, fillOpacity: 0.3, strokeOpacity: 0.3 });
-    map.addOverlay(circle);
+
+    bounds = map.getBounds(); //获取可视区域
+    var bssw = bounds.getSouthWest();   //可视区域左下角
+    var bsne = bounds.getNorthEast();   //可视区域右上角
+    var left_down_lat = bssw.lat;
+    var left_down_lng = bssw.lng;
+    var right_up_lat = bsne.lat;
+    var right_up_lng = bsne.lng;
+    console.log("左上角：(" + left_down_lat + "," + left_down_lng + ")")
+    console.log("右上角: (" + right_up_lat + "," + right_up_lng + ")")
+    console.log(left_down_lat + "," + left_down_lng + "," + right_up_lat + "," + right_up_lng)
+    // var circle = new BMap.Circle(mPoint, Circle_meters, { strokeWeight: 1, fillOpacity: 0.3, strokeOpacity: 0.3 });
+    // map.addOverlay(circle);
     var local = new BMap.LocalSearch(map, { renderOptions: { map: map, autoViewport: false } });
     local.setSearchCompleteCallback(searchComplete);
     local.setMarkersSetCallback(markersSet);
-    local.searchNearby(names, mPoint, Circle_meters);
+    AddRunningDiv();//显示数据正在搜索中........
+    local.searchInBounds(names, map.getBounds());
 
+    // local.searchNearby(names, mPoint, Circle_meters);
 }
 function markersSet(rs) {
+
     for (let i in rs) {
         point = rs[i].point;
         point_str = point.lng + "," + point.lat
@@ -60,32 +74,156 @@ function searchComplete(rs) {
 }
 
 function setAfterSearchOverlays() {
+    MoveRunningDiv();
     map.clearOverlays();
     var current_mk = getCurrentMarker(currentPoint);
     map.addOverlay(current_mk);//加上当前定位
+    conditions = new Array() //新的一页，清空上次的数据
     for (var i in sum_places) {
         coordinates = i.split(",");
         var point = new BMap.Point(coordinates[0], coordinates[1]);
-        setAfterSearchOverlaysByPoint(point)
+        setAfterSearchOverlaysByPoint(point, i);
+
+    }
+
+}
+var $$ = function (id) {
+    return document.getElementById(id);
+}
+function priceChange() {
+
+    var btnSelect = $$("btn_select");
+    var oSelect = btnSelect.getElementsByTagName("select")[0];
+    var max = oSelect.options.length;
+    var index = oSelect.selectedIndex;
+    var text = oSelect.options[index].text;
+    var low = 0, high = 10000000000;
+    if (text == "全部") {
+        low = low;
+        high = high;
+    } else if (index == 1) {
+        high = text.replace(/[^0-9]/ig, "");
+    } else if (index == max - 1) {
+        low = text.replace(/[^0-9]/ig, "");
+    } else {
+        p = text.split("-")
+        low = parseInt(p[0]);
+        high = parseInt(p[1]);
+    }
+    // console.log("价格区间是: "+low+","+high)
+    // console.log("sum总: "+sum_places.length)
+    // console.log("conditions总: "+conditions.length)
+    console.log("???????????????????????????????????????????????????????????????????")
+    setSearchOverlaysByPrice(low, high)
+
+}
+
+function setSearchOverlaysByPrice(low, high) {
+    map.clearOverlays();
+    c = 0//搜索结果重置为0
+    for (let i in conditions) {
+        var r = conditions[i]
+        price = r.detail_info.price
+        price = parseInt(typeof price == "undefined" ? 0 : price)
+
+        if (price >= low && price <= high) {
+            console.log("price: ", price)
+
+            var point = transStringToPoint(i)
+            setAfterSearchOverlaysByPoint(point)
+        }
+    }
+
+}
+
+function setConditions(point_str, mes) {
+    if (!(point_str in conditions.keys())) {
+        conditions[point_str] = mes //
+        // console.log("<<<<<<<<<<<<<<<<<<",conditions[point_str])
     }
 }
 
-
-function setAfterSearchOverlaysByPoint(p) {
-    var mk = new BMap.Marker(p);
-    map.addOverlay(mk);
+function setAfterSearchOverlaysByPoint(p, s) {
     var point_str = transPointToString(p);
     var mes = getDetailsByPoint_str(point_str);
+    if (mes == false) {
+        return false;//出现错误 不处理
+    }
+    if (typeof mes.price == "undefined") {
+        mes.price = 0
+    }
+
+    setConditions(s, mes.condition)
+    var htm = "<div class=\"posit\" style=\"user-select: none; left: -20px; top: -20px;\"><div>\
+    <span class=\"posit_index\">"+ mes.index + "</span>\
+    <p class=\"posit_tit\">"+ mes.name + "\
+        <span>¥\
+            <em>"+ mes.price + "</em>\
+        </span>\
+    </p>\
+    </div>";
+    var mk = new BMapLib.RichMarker(htm, p, {});
+    map.addOverlay(mk);
     mk.addEventListener("mouseover", function () {
-        this.openInfoWindow(showInfoByWindow(point_str));
+        showNearby(point_str)
+        // console.log("mk :",$(mk._container))
+        // $(mk._container).children("div.posit").addClass("layer")
+        // $(mk._container).addClass("hover")
+        // $(mk._container).children("div.posit").addClass("on")
+        // openDetailWindow(point_str)
+
+    });
+    mk.addEventListener("mouseout", function () {
+        // $(mk._container).children("div.posit").removeClass("hover")
+
     });
 
     mk.addEventListener("click", function () {
-        window.open(mes.url);
+        map.openInfoWindow(showInfoByWindow(point_str), p);
+        // window.open(mes.url);
+        // this.openInfoWindow(showInfoByWindow(point_str));
     })
 
 }
-
+// 88888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888
+function showNearby(point_str){
+    clearNearbyOverlays();
+    nearby_places=['超市','景点','商场']
+    mPoint=transStringToPoint(point_str)
+    // var circle = new BMap.Circle(mPoint,nearby_meters,{ strokeWeight: 1 ,fillOpacity: 0.3, strokeOpacity: 0.3});
+    // map.addOverlay(circle);
+    var local =  new BMap.LocalSearch(map, {renderOptions: {map: map, autoViewport: false}});  
+    local.searchNearby(nearby_places,mPoint,nearby_meters);
+    // local.setSearchCompleteCallback(searchComplete);
+    local.setMarkersSetCallback(nearbyMarkersSet);
+}
+function clearNearbyOverlays(){
+    len=nearby_markers.length
+    if (len>0){
+        for (var i=0;i<len;i++){
+            console.log("nnn:  ",nearby_markers[i])
+            map.removeOverlay(nearby_markers[i]);
+        }
+        nearby_markers=new Array();//重置
+    }
+}
+// 222222222222222222222222222222222222222222222222222222222222222222222222222222222222
+function nearbyMarkersSet(rs){
+    for (let i in rs){
+        var result=rs[i]
+        var p=result.point;
+        var name=result.title;
+        var html=nearbyHtml(name)
+        var mk = new BMapLib.RichMarker(html, p, {});
+        map.addOverlay(mk);
+        nearby_markers.push(mk)
+    }
+}
+// 999999999999999999999999999999999999999999999999999999999999999999999
+function nearbyHtml(name){
+    var html="<i class='fa fa-shopping-bag' style='color:green;' title='"+name+"'></i>"
+    return html
+}
 function getDetailsByUid(uid) {
     var data;
     $.ajax({
@@ -102,11 +240,15 @@ function getDetailsByUid(uid) {
             }
         }
     });
-    detailWindow(data);
+    // detailWindow(data);
     return data;
 }
 
-function detailWindow(data) {
+//用不到了
+function openDetailWindow(point_str) {
+    var info = sum_places[point_str];
+    var uid = info.uid;
+    var data = getDetailsByUid(uid)
     var name = data.name;
     $("#name").html(name);
     var address = data.address;
@@ -176,32 +318,49 @@ function getCurrentMarker(point) {
 }
 
 function showInfoByWindow(point_str) {
-
-    message = getDetailsByPoint_str(point_str) //message : {place:"",brief:"",image:"",distance:""}
-
-    sContent = "<h4 style='margin:0 0 5px 0;padding:0.2em 0'>" + "</br>距离我：" + message.distance + "公里</br>" + message.telephone + ",<br></h4>" +
-        "<img style='float:right;margin:4px' id='imgDemo' src='" + message.image + "' width='139' height='104' title='" + message.name + "'/><br>" +
-        "<p style='margin:0;line-height:1.5;font-size:13px;text-indent:2em'>" + "," + message.address + "</p>" +
-        "</div>";
+    var main = getWindowHtml(point_str)
+    var title = main.title, content = main.content;
     var opts = {
-        width: 250,     // 信息窗口宽度
+        width: 365,     // 信息窗口宽度
         height: 300,     // 信息窗口高度
-        title: message.name,// 信息窗口标题
-
+        title: title,// 信息窗口标题
     }
-    var infoWindow = new BMap.InfoWindow(sContent, opts);  // 创建信息窗口对象
+    var infoWindow = new BMap.InfoWindow(content, opts);  // 创建信息窗口对象
     return infoWindow;
-    // map.openInfoWindow(infoWindow, e.point); //开启信息窗口
-
-
 }
 
-var c = 1;//控制台显示条数用的
-//获取信息
-function getDetailsByPoint_str(point_str) {
 
+function getWindowHtml(point_str) {
     var info = sum_places[point_str];
     var uid = info.uid
+    var mes = getDetailsByUid(uid);
+    var detail_info = mes.detail_info
+    var html = "<a id='a' target='_blank'  href='" + detail_info.detail_url + "' >   \
+<div id='windowInfo'><div title='酒店设施("+ detail_info.hotel_facility + ")------>\
+室内设施("+ detail_info.inner_facility + ")------->\
+酒店服务("+ detail_info.hotel_service + ")'\
+id='hotel_img'><img  width='340' height='160' src='"+ mes.img_url + "'>\
+            </div><br><p><i class=' fa  fa-bank' style='color:springgreen'></i> 地址:"+ mes.address + "</p>\
+            <p><i class=' fa fa-phone' style='color:blue'></i> 电话:"+ mes.telephone + "</p>\
+    <p style='color:orange'> <i class=' fa fa-star' style='color:goldenrod'></i> 卫生评分:"+ detail_info.hygiene_rating + "--服务评分:" + detail_info.service_rating + "---设施评分:" + detail_info.facility_rating + "</p> </div></a>"
+    var main = { "content": html, "title": "<i class='fa fa-2x fa-home' style='color:orange'></i>" + mes.name + "(" + detail_info.level + "--" + detail_info.overall_rating + "分)" }
+    return main
+}
+
+
+
+//获取信息
+function getDetailsByPoint_str(point_str) {
+    var info, uid;
+    // info=sum_places[point_str]
+    // // if ()
+    try {
+        info = sum_places[point_str];
+        uid = info.uid;
+    } catch (error) {
+        console.log("sum_places没有: " + point_str)
+        return false //错误数据
+    }
     var mes = getDetailsByUid(uid);
     var point = transStringToPoint(point_str);
     if (typeof mes == "undefined") { // 如果mes响应无结果就重新发起请求
@@ -210,15 +369,24 @@ function getDetailsByPoint_str(point_str) {
             getDetailsByPoint_str(point_str);
         }, 1000);
     } else {
-        console.log("后台返回数据" + c + ": ", mes);
         c += 1;
+        // console.log("后台返回数据" + c + ": ", mes);
+        price = mes.detail_info.price
+        if (price == "" || price == "undefined") {
+            price = 0
+        }
+
+
         return {
+            "index": c,
             "name": mes.name,
-            "url": mes.detail_info.detail_url,
-            "image": mes.img_url,
+            "price": price,
+            "detail_url": mes.detail_info.detail_url,
+            "img_url": mes.img_url,
             "address": mes.address,
             "telephone": mes.telephone,
-            "distance": getDistance(point, currentPoint)
+            "condition": mes//对象
+
         };
 
     }
@@ -235,14 +403,35 @@ function getAddress(point) {
 
 
 //单位：公里
-function getDistance(point1, point2) {
-    return (map.getDistance(point1, point2) / 1000).toFixed(2);
-}
+// function getDistance(point1, point2) {
+//     return (map.getDistance(point1, point2) / 1000).toFixed(2);
+// }
 
 function changePlace(p) {
     names.push(examples[p]);
     showPlace(names);
     names.pop();
 
+}
+
+//提示信息  
+function AddRunningDiv() {
+    $("body").append("<div id='tip'><h1><strong>数据正在搜索中......</strong></h1></div>")
+    var a = document.getElementById("tip");
+    var Height = document.documentElement.clientHeight;//取得浏览器页面可视区域的宽度
+    var Width = document.documentElement.clientWidth;//取得浏览器页面可视区域的宽度
+    var gao1 = a.offsetHeight;
+    var gao2 = a.offsetWidth;
+    var Sgao1 = Height / 2 + "px";
+    var Sgao2 = Width / 2 + "px";
+    a.style.top = Sgao1;
+    a.style.left = Sgao2;
+    $(".black_overlay").css("display", "block")
+}
+//取消提示信息  
+function MoveRunningDiv() {
+    console.log("结束了>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>")
+    $(".black_overlay").css("display", "none")
+    $("#tip").remove()
 }
 

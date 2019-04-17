@@ -12,23 +12,14 @@ https://docs.djangoproject.com/en/2.1/ref/settings/
 
 import os
 import pymysql
-
+from fake_useragent import UserAgent
 pymysql.install_as_MySQLdb()
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # 爬虫代理
-USERAGENTS = [
-    "Mozilla/5.0 (compatible; MSIE 9.0; Windows NT 6.1; Trident/5.0; SLCC2; .NET CLR 2.0.50727; .NET CLR 3.5.30729; .NET CLR 3.0.30729; Media Center PC 6.0)",
-    "Mozilla/5.0 (compatible; MSIE 10.0; Windows NT 6.1; Trident/6.0; SLCC2; .NET CLR 2.0.50727; .NET CLR 3.5.30729; .NET CLR 3.0.30729; Media Center PC 6.0)",
-    "Mozilla/5.0 (Windows NT 5.1) AppleWebKit/535.11 (KHTML, like Gecko) Chrome/17.0.963.33 Safari/535.11",
-    "Mozilla/5.0 (Windows NT 5.1) AppleWebKit/535.19 (KHTML, like Gecko) Chrome/18.0.1025.142 Safari/535.19",
-    "Mozilla/5.0 (Windows NT 6.1) AppleWebKit/535.1 (KHTML, like Gecko) Chrome/14.0.802.30 Safari/535.1 SE 2.X MetaSr 1.0",
-    "Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1312.57 Safari/537.17 SE 2.X MetaSr 1.0",
-    "Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.1 (KHTML, like Gecko) Chrome/21.0.1180.92 Safari/537.1 LBBROWSER",
-]
-
+USERAGENTS=UserAgent().random
 # 获取酒店信息的目标接口
 INFOURL = "http://api.map.baidu.com/place/v2/detail"
 # 获取酒店图片的链接 获取的是字符串 需要转为json
@@ -38,7 +29,7 @@ XIECHENG="http://hotels.ctrip.com/hotel/"
 # 默认失败的照片
 FAILIMAGE="/static/img/fail.jpg"
 # 百度地图api的ak 浏览器端
-BAIDUAK = "DfPUKIDaRFpXtvAv1QqZBpS6D6SQwyMB"
+BAIDUAK = "dGa3ZcGGEdYLqdwuj4In9PNDtdC3BQ8W"
 # 配置mysql
 DATABASES = {
     "default": {

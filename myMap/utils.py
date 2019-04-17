@@ -7,7 +7,7 @@ import pymysql
 from django.conf import settings
 import random,json
 from datetime import datetime
-
+from fake_useragent import UserAgent
 
 
 class Manager(object):
@@ -175,17 +175,15 @@ class Manager(object):
             return {"image":i,"xiecheng":url}
 
     def getData(self,uid):
-        
         params = {
             "uid": uid,
             "scope": "2",
             "output": "json",
             "ak": self.ak,
         }
-        headers = {"User-Agent": random.choice(self.user_agents)}
+        headers = {"User-Agent": self.user_agents}
         r=requests.get(url=self.url, headers=headers, params=params).content
         return r
-
 
     def saveToBasic_info(self,lng_lat, name, address, telephone, img_url, price, uid):
         obj = {

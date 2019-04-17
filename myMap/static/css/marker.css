@@ -1,0 +1,81 @@
+/* 标注 */
+.map_con{position:relative;overflow:hidden;z-index:0;float:left;}
+.posit{background:url(../img/icon_dw.png) no-repeat;height:33px;position:absolute;}
+.on{ z-index:1;}
+.hover{ z-index:2;}
+.posit .posit_index{background:url(../img/icon_dw.png) no-repeat;position:absolute;width:33px;height:50px;text-align:center;color:#fff;font-size:16px;font-weight:bold;line-height:30px;}
+.hover .posit_index,.on .posit_index,.posit:hover .posit_index{background:url(../img/icon_dw_on.png) no-repeat;width:33px;}
+.posit .posit_tit{padding-left:37px;color:#028ece;line-height:30px;white-space:nowrap;}
+.posit .posit_tit span{margin-left:5px;color:#666;}
+.posit .posit_tit span em{font-size:14px;color:#ff6600;font-weight:bold;}
+
+
+/* 消息窗口 */
+#a{
+    text-decoration: none;
+    /* color:goldenrod; */
+}
+#windowInfo{
+    font-weight: bold;
+    color: #666;
+    line-height: 60%;
+    text-align: center;
+    /* color: black; */
+    width: 361px;
+    height: 351px;
+    
+}
+#hotel_img{
+    border: 5px solid #ddd;
+    padding: 5px;
+    background: #fff;
+}
+
+/* 价格选择 */
+* { 
+    margin: 0; 
+    padding: 0; 
+    } 
+    /* body { 
+    padding: 50px 50px; 
+    }  */
+    .btn-select { 
+   text-align: center;
+    position: relative; 
+    display: inline-block; 
+    width: 100px; 
+    height: 25px; 
+    background-color: #f80; 
+    font: 14px/20px "Microsoft YaHei"; 
+    color: #fff; 
+    } 
+    .btn-select .cur-select { 
+    position: absolute; 
+    display: block; 
+    width: 100px; 
+    height: 25px; 
+    line-height: 25px; 
+    background: #f80 url(ico-arrow.png) no-repeat 125px center; 
+    text-indent: 10px; 
+    } 
+    .btn-select:hover .cur-select { 
+    background-color: #f90; 
+    } 
+    .btn-select select { 
+    position: absolute; 
+    top: 0; 
+    left: 0; 
+    width: 100px; 
+    height: 25px; 
+    opacity: 0; 
+    filter: alpha(opacity: 0;); 
+    font: 14px/20px "Microsoft YaHei"; 
+    color: #f80; 
+    } 
+    .btn-select select option { 
+    text-indent: 10px; 
+    } 
+    .btn-select select option:hover { 
+    background-color: #f80; 
+    color: #fff; 
+    }  

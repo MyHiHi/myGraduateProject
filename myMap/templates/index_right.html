@@ -3,7 +3,7 @@
         <div id="l-map"></div>
         
         <div id="place_select">
-
+<!-- 关键字搜索前端代码 -->
             <div>
                 <input type="text" class="form-control" id="suggestId" size="80" placeholder="输入地名搜索"/>
                     </div>
@@ -22,4 +22,19 @@
         总搜索结果:<p id="count" style="display: inline">  0 </p>条
     </div>
     
+    <!-- 价格选择 -->
+   <div id="price_select" onchange="priceChange()">
+    <a class="btn-select" id="btn_select"> 
+        <span class="cur-select">价格</span> 
+           <select> 
+            <option>全部</option> 
+           <option>低于100</option> 
+           <option>100-300</option> 
+           <option>300-500</option> 
+           <option>500-700</option> 
+           <option>高于700</option> 
+         
+           </select> 
+           </a> 
+   </div>
 </div>
