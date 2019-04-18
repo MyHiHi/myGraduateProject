@@ -28,6 +28,7 @@ function initMap() {
 
 //showPlace
 function showPlace(names) {
+    map.clearOverlays();
     c = 0//搜索结果重置为0
     if (typeof names == "object" && !(names instanceof Array)) { //地图转换城市后,names会变成一个对象,搜索出错,主动赋值
         console.log("names又出错了!");
@@ -404,6 +405,7 @@ function getAddress(point) {
 function changePlace(p) {
     k=examples[p];
     if (k.length==0){
+        clearNearbyOverlays();
         return false;
     }
     showNearby(k)
@@ -433,8 +435,8 @@ function MoveRunningDiv() {
 //
 function showServices(services){
     if (services.indexOf("不限")!=-1){
-        showPlace()
-        return
+        showPlace();
+        return true
     }
     // 66666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666
     map.clearOverlays();
@@ -446,20 +448,23 @@ function showServices(services){
         isExists=true;
         facility=checkExists(facility.hotel_facility)+","+checkExists(facility.hotel_service)+","+
         checkExists(facility.inner_facility)
-        console.log("被参考的设施:  ",facility)
-        console.log("目标设施: ",services)
-        for (var i=0;i<services.length;i++){
-            p=services[i]
+        // console.log("被参考的设施:  ",facility)
+        
+        for (var a=0;a<services.length;a++){
+            p=services[a]
             if (facility.indexOf(p)==-1){
                 isExists=false;
                 break;
             }
         }
         if (isExists){
+            console.log("目标设施: ", services)
+            console.log(">>>>>>>> ",i)
             var point = transStringToPoint(i)
-            setAfterSearchOverlaysByPoint(point);
+            setAfterSearchOverlaysByPoint(point,i);
         }
     }
+    setCount(c)
 }
 
 function checkExists(r){
