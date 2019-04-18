@@ -27,8 +27,8 @@ text-align: center;
 }
 
 #option {
-    right:3%;
-    top:15%;
+    right:9%;
+    top:4%;
     position:absolute;
     z-index: 9999;
 }
@@ -68,9 +68,11 @@ text-align: center;
 }
 #tip{
     text-align: center;
-    position: fixed;
+    /* position: fixed; */
+    position: absolute;
     font-weight:200;
-    text-align : center;
+    left:50%;
+    top:50%;
     color: orange;
     z-index:10000
 }

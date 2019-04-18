@@ -226,28 +226,6 @@ function nearbyMarkersSet(rs){
         var marker=result.marker
         var title=result.title
         marker.setTitle(title);
-        // var label=new BMap.Label(title)
-        // label.setStyle({
-        //     "color" :'green',
-        //     "font-weight":'bolder'
-        // })
-        // marker.addEventListener('click',function(){
-        //     console.log("点击我了!")
-        //     return false;
-        // })
-        // marker.addEventListener('mouseover')
-       
-        // marker.setLabel(label)
-        // let icon=new BMap.Icon("{% static 'img/marker.jpg'%}",new BMap.Size(0,0))
-        // marker.setIcon(icon)
-     
-        // var marker=new BMap.Marker(p,{
-        //     offset:new BMap.Size(0,0),
-        //     icon:new BMap.Icon("../img/marker.jpg",new BMap.Size(0,0))
-        // })
-        // var marker=result.marker
-        // var mk=new BMap.Marker(p)
-        // map.addOverlay(mk);
         map.addOverlay(marker)
         nearby_markers.push(marker);
     }
@@ -269,7 +247,6 @@ function getDetailsByUid(uid) {
             }
         }
     });
-    // detailWindow(data);
     return data;
 }
 function transPointToString(p) {
@@ -413,14 +390,14 @@ function changePlace(p) {
 
 //提示信息  
 function AddRunningDiv() {
-    $("body").append("<div id='tip' style='font-weight:200'><h1><strong>数据正在搜索中......</strong></h1></div>")
+    $("body").append("<div id='tip' style=''><h1><strong ><p style='font-size:60px'>数据正在搜索中......</p></strong></h1></div>")
     var a = document.getElementById("tip");
     var Height = document.documentElement.clientHeight;//取得浏览器页面可视区域的宽度
     var Width = document.documentElement.clientWidth;//取得浏览器页面可视区域的宽度
     var gao1 = a.offsetHeight;
     var gao2 = a.offsetWidth;
     var Sgao1 = Height / 2 + "px";
-    var Sgao2 = Width / 2 + "px";
+    var Sgao2 = Width /2-200+ "px";
     a.style.top = Sgao1;
     a.style.left = Sgao2;
     $(".black_overlay").css("display", "block")
@@ -435,7 +412,7 @@ function MoveRunningDiv() {
 //
 function showServices(services){
     if (services.indexOf("不限")!=-1){
-        showPlace();
+        showPlace(names);
         return true
     }
     // 66666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666
