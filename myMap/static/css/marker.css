@@ -79,3 +79,126 @@
     background-color: #f80; 
     color: #fff; 
     }  
+
+
+    /* 条件选择 */
+    * {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+        font-size: 12px;
+        text-decoration: none;
+    }
+    
+    .wrapper {
+        padding: 30px;
+    }
+    
+    .label {
+        width: 40px;
+        float: left;
+        color: #999
+    }
+    
+    .zhi-ul {
+        width: 500px;
+        float: left;
+    }
+    
+    .div-item {
+        height: auto;
+        margin-bottom: 10px;
+        overflow: hidden;
+    }
+    
+    .zhi-ul li {
+        float: left;
+        margin-right: 10px;
+        color: #666
+    }
+    
+    .zhi-ul li a {
+        color: #20ace8;
+    }
+    
+    .layouts {
+        position: fixed;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        background: rgba(0, 0, 0, .4)
+    }
+    
+    .layoutsMain {
+        width: 300px;
+        height: 300px;
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        margin: auto;
+        background: #fff;
+        border-radius: 5px;
+    }
+    
+    .title {
+        height: 39px;
+        padding: 0 10px;
+        border-bottom: 1px solid #dcdcdc;
+        font-size: 14px;
+        line-height: 39px;
+        color: #333;
+    }
+    
+    .main-wrapper {
+        height: 220px;
+        overflow-y: auto;
+    }
+    
+    .btn-wrapper {
+        text-align: center;
+        ;
+        height: 39px;
+        border-top: 1px solid #dcdcdc;
+    }
+    
+    .btn-wrapper a {
+        width: 60px;
+        margin: 0 10px;
+        height: 24px;
+        border-radius: 5px;
+        display: inline-block;
+        line-height: 24px;
+        margin-top: 7px;
+    }
+    
+    .btn-wrapper a:first-child {
+        color: #fff;
+        background: #20ace8
+    }
+    
+    .btn-wrapper a:last-child {
+        color: #666;
+        background: #f1f1f1
+    }
+    
+    .checkboxwrapper {
+        padding: 10px;
+    }
+    
+    .checkboxwrapper label {
+        width: auto;
+        height: auto;
+        min-width: 68px;
+        display: inline-block;
+        cursor: pointer;
+        margin-bottom: 5px;
+    }
+    
+    .checkboxwrapper input {
+        margin-right: 5px;
+    }
+
+   

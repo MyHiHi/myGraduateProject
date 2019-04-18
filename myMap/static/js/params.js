@@ -3,7 +3,11 @@ var  currentPoint; //我当前的位置point
 var c_location;//取到的城市
 var names = ["酒店","旅馆"]; //检索基础关键字
 var names_backups = ["酒店","旅馆"]; //值与初始时的names保持一致，这是names备用的，一旦names出错，就主动赋值
-var examples = ["景点","商场","大学","机场火车"];
+var examples = {"显示周边":[],"超市":["超市","商城","商店","小吃","商场"],
+"景点":["景点","古迹"],
+"学校":["学校","培训学校","大学","校区"],
+"交通":["地铁","火车","机场","公交站"],
+"取消":[]};
 var init_point = new BMap.Point(116.404, 39.915);
 var init_class = 16.5;
 var sum_places = new Array();//存储所有结果的字典
@@ -11,10 +15,11 @@ var current_places = new Array();//当前本地搜索结果的字典
 var address="";//point转为的地址
 var Circle_meters=1500;//搜索中的范围 : 米
 
-var nearby_meters=500;//周围500米
-var nearby_places=new Array() //周围500米
+var nearby_places=['超市','景点','商场']
+var nearby_meters=300;//周围500米
 var nearby_markers=new Array()
 
+var services=new Array;//存储选择好的设施
 
 var geolocationControl = new BMap.GeolocationControl({showAddressBar:false,enableAutoLocation:true});//定位控件
 var current_gif="http://www.yantiansf.cn/mapImage/1.gif" //当前位置标签图案

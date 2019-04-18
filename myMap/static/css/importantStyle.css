@@ -33,8 +33,19 @@ text-align: center;
     z-index: 9999;
 }
 
+#services {
+    color: orange;
+    right:24%;
+    top:-3%;
+    position:absolute;
+    z-index: 9999;
+}
+
 #result_count{
-    right: 11%;
+    font-weight: bolder;
+    color:orange;
+    font-size: 18px;
+    right: 80%;
     top:2%;
     position:absolute;
     z-index: 9999;

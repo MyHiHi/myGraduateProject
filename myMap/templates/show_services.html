@@ -1,0 +1,140 @@
+<div id="services">
+<div class="wrapper">
+</div>
+<div class="layouts" style="display:none">
+    <div class="layoutsMain">
+        <div class="title"></div>
+        <div class="main-wrapper">
+            <div class="checkboxwrapper">
+            </div>
+        </div>
+        <div class="btn-wrapper">
+            <a href="javascript:;" class="a-btn-01" onclick="sureBtn()">确定</a>
+            <a href="javascript:;" class="a-btn-02">取消</a>
+        </div>
+    </div>
+</div>
+</div>
+
+
+<script>
+var arr = [{
+    id: 0,
+    name: "techang",
+    title: "酒店设施",
+    data: [{
+        value: "001",
+        displayVaule: "会议"
+    }, {
+        value: "002",
+        displayVaule: "24小时热水"
+    }, {
+        value: "003",
+        displayVaule: "无线上网"
+    }, {
+        value: "004",
+        displayVaule: "空调"
+    }, {
+        value: "005",
+        displayVaule: "接机"
+    }, {
+        value: "006",
+        displayVaule: "国内长途电话"
+    },
+    {
+        value: "007",
+        displayVaule: "免费停车场"
+    }
+    ,
+    {
+        value: "008",
+        displayVaule: "行李寄存 叫醒服务"
+    },
+    {
+        value: "009",
+        displayVaule: "不限"
+    }
+]
+}]
+var current = 0;
+var checkboxWrap = [];
+var zhi = []; //选中弹框的值
+function setPage() {
+    var tempPd = [];
+    for (var i = 0; i < arr.length; i++) {
+        var _title = arr[i].title;
+        var _data = arr[i].data;
+        var _name = arr[i].name;
+        var liHTML = [];
+        zhi[i] = zhi[i] || [];
+        for (var j = 0; j < zhi[i].length; j++) {
+            liHTML.push(zhi[i][j])
+            
+        }
+        
+        
+        tempPd.push('<div class="div-item">' +
+                '<span class="label">' + _title + ':</span>' +
+                '<li class="last"><a class="btn btn-success" href="javascript:;" class="choose" onclick="choose(this,' + i + ')">' + (zhi[i].length > 0 ? '重新选择' : '设施') + '</a></li>' +
+                '</ul>' +
+                '</div>')
+        if (liHTML.length>0)
+            showServices(liHTML);
+        // tempPd.push('<a class="btn btn-success" href="javascript:;" class="choose" onclick="choose(this,' + i + ')">' + (zhi[i].length > 0 ? '重新选择' : '设施') + '</a>' )
+
+    }
+    $('.wrapper').html(tempPd.join(""));
+}
+setPage();
+/**
+ * [sureBtn 点击弹框的确定事件]
+ * @return {[type]} [description]
+ */
+function sureBtn() {
+    zhi[current] = [];
+    var $checked = $('.checkboxwrapper input[type=checkbox]:checked');
+    var chsLength = $checked.length;
+    for (var i = 0; i < chsLength; i++) {
+        zhi[current].push($checked.eq(i).siblings('span').text());
+    }
+    $('.layouts').hide();
+    setPage();
+}
+//点击取消事件
+$('body').on('click', '.a-btn-02', function() {
+    $('.layouts').hide();
+})
+
+/**
+ * [choose 点击选择弹出弹框]
+ * @param  {[type]} obj   [点击的 选择元素]
+ * @param  {[type]} index [‘选择’在页面类别序列]
+ * @return {[type]}       [description]
+ */
+function choose(obj, index) {
+    current = index;
+    checkboxWrap = [];
+    $('.layouts').show();
+    var layoutTitle = $(obj).parents('.div-item').find('.label').text();
+    $('.title').text(layoutTitle.substring(0, layoutTitle.length - 1))
+    setDialog(index);
+}
+
+/**
+ * [setDialog 弹框里面的checkbox和页面上的数据匹配  并给checked状态]
+ * @param {[type]} index [页面类别序列]
+ */
+function setDialog(index) {
+    zhi[index] = zhi[index] || [];
+    var checkboxWrap = [],
+        data = arr[index],
+        _title = data.title,
+        _data = data.data,
+        _name = data.name;
+    for (var j = 0; j < _data.length; j++) {
+        var flag = zhi[index].indexOf(_data[j].displayVaule) > -1; //精华
+        checkboxWrap.push('<label><input type="checkbox" ' + (flag ? "checked" : null) + ' name="' + _name + '" value="' + _data[j].value + '"/><span>' + _data[j].displayVaule + '</span></label>')
+    }
+    $('.checkboxwrapper').html(checkboxWrap.join(""));
+}
+</script>
