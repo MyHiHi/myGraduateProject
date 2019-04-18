@@ -1,10 +1,8 @@
 function setStyle() {
     var r = document.getElementById("styleList");
-    let c=0;
     for (var i in examples) {
         r.options.add(new Option(i,i))
-        c+=1
-        // r.options.add(new Option(examples[i], i));
+       
     }
 }
 //加载地图组件,配置地图
@@ -23,9 +21,6 @@ function initMap() {
     map.addControl(navigationControl);
     map.addEventListener("dragend", showPlace);
 }
-
-
-
 //showPlace
 function showPlace(names) {
     map.clearOverlays();
@@ -36,15 +31,12 @@ function showPlace(names) {
     }
     sum_places = new Array();//清空;让sum_places只存当前搜索结果
     var mPoint = map.getCenter();
-
     bounds = map.getBounds(); //获取可视区域
     var local = new BMap.LocalSearch(map, { renderOptions: { map: map, autoViewport: false } });
     local.setSearchCompleteCallback(searchComplete);
     local.setMarkersSetCallback(markersSet);
     AddRunningDiv();//显示数据正在搜索中........
     local.searchInBounds(names, map.getBounds());
-
-    // local.searchNearby(names, mPoint, Circle_meters);
 }
 function markersSet(rs) {
 
@@ -128,8 +120,7 @@ function setSearchOverlaysByPrice(low, high) {
 
 function setConditions(point_str, mes) {
     if (!(point_str in conditions.keys())) {
-        conditions[point_str] = mes //
-        // console.log("<<<<<<<<<<<<<<<<<<",conditions[point_str])
+        conditions[point_str] = mes 
     }
 }
 
@@ -142,16 +133,7 @@ function setAfterSearchOverlaysByPoint(p, s) {
     if (typeof mes.price == "undefined") {
         mes.price = 0
     }
-
     setConditions(s, mes.condition)
-    // var htm = "<div class=\"posit\" style=\"user-select: none; left: -20px; top: -20px;\"><div>\
-    // <span class=\"posit_index\">"+ mes.index + "</span>\
-    // <p class=\"posit_tit\">"+ mes.name + "\
-    //     <span>¥\
-    //         <em>"+ mes.price + "</em>\
-    //     </span>\
-    // </p>\
-    // </div>";
      var htm = "<div class=\"posit\" style=\"user-select: none; left: -8px; top: -8px;\"><div>\
     <span class=\"posit_index\">"+ mes.index + "</span>\
     <p class=\"posit_tit\">"+ mes.name + "\
@@ -163,41 +145,26 @@ function setAfterSearchOverlaysByPoint(p, s) {
     var mk=new BMap.Marker(p)
     var label=new BMap.Label()
     label.setContent(htm)
-    // mk.disableMassClear()
     mk.setLabel(label)
-    // var mk = new BMapLib.RichMarker(htm, p, {});
     map.addOverlay(mk);
     mk.addEventListener("mouseover", function () {
-        // showNearby(point_str)
-        // console.log("mk :",$(mk._container))
-        // $(mk._container).children("div.posit").addClass("layer")
-        // $(mk._container).addClass("hover")
-        // $(mk._container).children("div.posit").addClass("on")
-        // openDetailWindow(point_str)
-
     });
     mk.addEventListener("mouseout", function () {
-        // $(mk._container).children("div.posit").removeClass("hover")
-
     });
 
     mk.addEventListener("click", function () {
         map.openInfoWindow(showInfoByWindow(point_str), p);
-        // window.open(mes.url);
-        // this.openInfoWindow(showInfoByWindow(point_str));
     })
 
 }
-// 88888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888
+
 function showNearby(name){
     clearNearbyOverlays();
-    // map.clearOverlays();
     var mPoint = map.getCenter();
     bounds = map.getBounds(); //获取可视区域
     var local = new BMap.LocalSearch(map, { renderOptions: { map: map, autoViewport: false } });
     AddRunningDiv();//显示数据正在搜索中........
     local.searchInBounds(name, map.getBounds());
-    // local.setSearchCompleteCallback(searchComplete);
     local.setMarkersSetCallback(nearbyMarkersSet);
 }
 
@@ -206,10 +173,7 @@ function clearNearbyOverlays(){
     len=nearby_markers.length
     if (len>0){
         for (var i=0;i<len;i++){
-            // ????????????????????????????????????????????????????????????????????
             map.removeOverlay(nearby_markers[i]);
-            // nearby_markers[i].hide()
-            // console.log("cleaned nearby_markers: ",nearby_markers[i])
         }
         
         nearby_markers=new Array();//重置
@@ -262,21 +226,21 @@ function setCount(num) {
 }
 
 //开始定位
-//unused
-function setCurrentLocation() {
-    var geolocation = new BMap.Geolocation();
-    geolocation.getCurrentPosition(function (r) {
-        if (this.getStatus() == BMAP_STATUS_SUCCESS) {
-            var mk = getCurrentMarker(r.point)
-            currentPoint = r.point;
-            map.addOverlay(mk);
-            map.panTo(r.point);
-        }
-        else {
-            alert('failed' + this.getStatus());
-        }
-    }, { enableHighAccuracy: true })
-}
+//先不删
+// function setCurrentLocation() {
+//     var geolocation = new BMap.Geolocation();
+//     geolocation.getCurrentPosition(function (r) {
+//         if (this.getStatus() == BMAP_STATUS_SUCCESS) {
+//             var mk = getCurrentMarker(r.point)
+//             currentPoint = r.point;
+//             map.addOverlay(mk);
+//             map.panTo(r.point);
+//         }
+//         else {
+//             alert('failed' + this.getStatus());
+//         }
+//     }, { enableHighAccuracy: true })
+// }
 
 //
 
@@ -319,13 +283,9 @@ id='hotel_img'><img  width='340' height='160' src='"+ mes.img_url + "'>\
     return main
 }
 
-
-
 //获取信息
 function getDetailsByPoint_str(point_str) {
     var info, uid;
-    // info=sum_places[point_str]
-    // // if ()
     try {
         info = sum_places[point_str];
         uid = info.uid;
@@ -342,7 +302,6 @@ function getDetailsByPoint_str(point_str) {
         }, 1000);
     } else {
         c += 1;
-        // console.log("后台返回数据" + c + ": ", mes);
         price = mes.detail_info.price
         if (price == "" || price == "undefined") {
             price = 0
@@ -404,7 +363,6 @@ function AddRunningDiv() {
 }
 //取消提示信息  
 function MoveRunningDiv() {
-    console.log("结束了>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>")
     $(".black_overlay").css("display", "none")
     $("#tip").remove()
 }
@@ -415,17 +373,15 @@ function showServices(services){
         showPlace(names);
         return true
     }
-    // 66666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666
+    
     map.clearOverlays();
     c = 0//搜索结果重置为0
     for (let i in conditions) {
         var r = conditions[i]
         facility = r.detail_info
-        // console.log("****************",facility.hotel_facility)
         isExists=true;
         facility=checkExists(facility.hotel_facility)+","+checkExists(facility.hotel_service)+","+
         checkExists(facility.inner_facility)
-        // console.log("被参考的设施:  ",facility)
         
         for (var a=0;a<services.length;a++){
             p=services[a]
@@ -435,8 +391,6 @@ function showServices(services){
             }
         }
         if (isExists){
-            console.log("目标设施: ", services)
-            console.log(">>>>>>>> ",i)
             var point = transStringToPoint(i)
             setAfterSearchOverlaysByPoint(point,i);
         }
