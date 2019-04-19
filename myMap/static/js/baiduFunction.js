@@ -257,8 +257,8 @@ function showInfoByWindow(point_str) {
     var main = getWindowHtml(point_str)
     var title = main.title, content = main.content;
     var opts = {
-        width: 365,     // 信息窗口宽度
-        height: 300,     // 信息窗口高度
+        // width: 365,     // 信息窗口宽度
+        // height: 300,     // 信息窗口高度
         title: title,// 信息窗口标题
     }
     var infoWindow = new BMap.InfoWindow(content, opts);  // 创建信息窗口对象
@@ -270,18 +270,99 @@ function getWindowHtml(point_str) {
     var info = sum_places[point_str];
     var uid = info.uid
     var mes = getDetailsByUid(uid);
-    var detail_info = mes.detail_info
-    var html = "<a id='a' target='_blank'  href='" + detail_info.detail_url + "' >   \
+    var detail_info = mes.detail_info;
+    var flag=DangerOrSuccess(point_str);//css标识是否加入对比
+    var html = "<a style='line-height:30px' id='a' target='_blank'  href='" + detail_info.detail_url + "' >   \
 <div id='windowInfo'><div title='酒店设施("+ detail_info.hotel_facility + ")------>\
 室内设施("+ detail_info.inner_facility + ")------->\
 酒店服务("+ detail_info.hotel_service + ")'\
 id='hotel_img'><img  width='340' height='160' src='"+ mes.img_url + "'>\
             </div><br><p><i class=' fa  fa-bank' style='color:springgreen'></i> 地址:"+ mes.address + "</p>\
             <p><i class=' fa fa-phone' style='color:blue'></i> 电话:"+ mes.telephone + "</p>\
-    <p style='color:orange'> <i class=' fa fa-star' style='color:goldenrod'></i> 卫生评分:"+ detail_info.hygiene_rating + "--服务评分:" + detail_info.service_rating + "---设施评分:" + detail_info.facility_rating + "</p> </div></a>"
+    <p style='color:orange'> <i class=' fa fa-star' style='color:goldenrod'></i> 卫生评分:"+ detail_info.hygiene_rating + "--服务评分:" + detail_info.service_rating + "---设施评分:" + detail_info.facility_rating + "</p></a>\
+    <span id='compareBox' class='btn "+flag["class"]+"' onclick='hotelsCompare()' style='text-align:center' value='"+point_str+"'>"+flag["tip"]+"</span> </div>"
     var main = { "content": html, "title": "<i class='fa fa-2x fa-home' style='color:orange'></i>" + mes.name + "(" + detail_info.level + "--" + detail_info.overall_rating + "分)" }
     return main
 }
+
+
+function DangerOrSuccess(point_str){
+    if (point_str in compare_boxes){
+        return {"class":"btn-success","tip":"已加入对比箱"};
+    }else{
+        return {"class":"btn-danger","tip":"未加入对比箱"};
+    }
+}
+
+function hotelsCompare(){
+    box=$("#compareBox");
+    changeBoxClass(box);//绿色代表选中，红色代表未选中。
+    var point_str=box.attr('value')
+    pushOrPopBox(point_str)
+}
+
+function changeBoxClass(box){
+    if (box.hasClass('btn-success')){
+        box.removeClass('btn-success').addClass('btn-danger').html('未加入比对箱')
+    }else{
+        box.removeClass('btn-danger').addClass('btn-success').html('已加入比对箱')
+    }
+}
+
+function pushOrPopBox(point_str){
+    if (point_str in compare_boxes){
+        delete compare_boxes[point_str]
+        console.log("箱子删除以后:",compare_boxes)
+        
+    }else{
+        compare_boxes[point_str]=conditions[point_str]
+        console.log("箱子添加以后 :",compare_boxes)
+    }
+}
+
+function showHotels(){
+    operations='<li><input type="button" value="查看" onclick=\'viewHotels()\' class="submitBtn btn-primary" /></li>\
+    <li><input type="button" value="清空" onclick=\'clearHotels()\' class="submitBtn btn-danger" /></li>'
+    html=""
+    // console.log("compare_boxes: ",compare_boxes)
+    for (var i in compare_boxes){
+        detail=compare_boxes[i].detail_info
+        url=detail.detail_url
+        name=compare_boxes[i].name
+        price=detail.price
+        if (typeof price=="undefined" || price=="")
+            price=0
+        h="<li><a target='_blank' href='"+url+"'>"+name+"(￥"+price+")</a></li>"
+        html+=h;
+        // console.log(i)
+    }
+    if (html!='')
+        $(".editInfos").html(html+operations)
+    showHotelsCompare();
+}
+
+function showHotelsCompare(){
+    getSrceenWH();
+    className="bounceInDown"
+    console.log($('.editInfos').html())
+    $('#dialogBg').fadeIn(300);
+
+    $('#dialog').removeAttr('class').addClass('animated '+className+'').fadeIn();
+}
+
+function viewHotels(){
+    console.log('compare_boxes: ',compare_boxes)
+}
+
+//???????????????????????????????????????????????????????????????????????????????
+function clearHotels(){
+    compare_boxes=new Array()//清空对比箱
+    $('.editInfos').html('<li>此处空空如也.........</li>\
+    <li><input type="button" value="查看" class="submitBtn btn-primary"  /></li>\
+<li><input type="button" value="清空"  class="submitBtn btn-danger" /></li>')
+alert('清空完毕!')
+}
+
 
 //获取信息
 function getDetailsByPoint_str(point_str) {

@@ -18,8 +18,8 @@ var Circle_meters=1500;//搜索中的范围 : 米
 var nearby_places=['超市','景点','商场']
 var nearby_meters=300;//周围500米
 var nearby_markers=new Array()
-
-var services=new Array;//存储选择好的设施
+var compare_boxes=new Array();//存放对比箱
+var services=new Array();//存储选择好的设施
 
 var geolocationControl = new BMap.GeolocationControl({showAddressBar:false,enableAutoLocation:true});//定位控件
 var current_gif="http://www.yantiansf.cn/mapImage/1.gif" //当前位置标签图案
