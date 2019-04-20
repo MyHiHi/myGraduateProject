@@ -3,7 +3,8 @@
 	font:.85em/1.4 "微软雅黑","Microsoft Yahei",'Arial','san-serif';
 	color:#666;
 	margin:0;
-	padding:0
+  padding:0;
+  font-size: 600px
 }
 #tip_img{
 	max-width:100%;
@@ -312,3 +313,4 @@ header{width:90%;text-align:center;padding:5%;letter-spacing:2px;color:#333;font
 .ipt{border:1px solid #ccc;padding:5px;border-radius:3px;-webkit-border-radius:3px;box-shadow:0 0 3px #ccc inset;-webkit-box-shadow:0 0 3px #ccc inset;margin-left:5px;}
 .ipt:focus{outline:none;border-color:#66afe9;box-shadow:0 1px 1px rgba(0, 0, 0, 0.075) inset, 0 0 8px rgba(102, 175, 233, 0.6);-webkit-box-shadow:0 1px 1px rgba(0, 0, 0, 0.075) inset, 0 0 8px rgba(102, 175, 233, 0.6);}
 .submitBtn{width:90px;height:30px;line-height:30px;font-family:"微软雅黑","microsoft yahei";cursor:pointer;margin-top:10px;display:inline-block;border-radius:5px;-webkit-border-radius:5px;text-align:center;color:#fff;box-shadow: 0 -3px 0 #2a6496 inset;-webkit-box-shadow: 0 -3px 0 #2a6496 inset;}
+a{font-weight:bolder;}

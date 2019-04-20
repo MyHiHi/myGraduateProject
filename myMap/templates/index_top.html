@@ -2,12 +2,14 @@
 <html>
 
 <head >
+        {% load staticfiles %}
+        <link rel="icon" href="{%static 'img/title.ico'%}" type="image/x-icon"/>
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
-    <title>地图展示</title>
+    <title>酒店地图搜索!</title>
 
-    {% load staticfiles %}
+
     <link rel="stylesheet" href="{% static 'vendor/simple-line-icons/css/simple-line-icons.css'%}">
     <link rel="stylesheet" href="{% static '/vendor/font-awesome/css/fontawesome-all.min.css'%}">
     <link rel="stylesheet" href="{% static 'css/styles.css'%}">
