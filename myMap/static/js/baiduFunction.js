@@ -321,7 +321,7 @@ function pushOrPopBox(point_str){
 }
 
 function showHotels(){
-    operations='<li><input type="button" value="查看" onclick=\'viewHotels()\' class="submitBtn btn-primary" /></li>\
+    operations='<li><input type="button" value="查看" onclick=\'viewHotels()\' class="rollIn submitBtn btn-primary" /></li>\
     <li><input type="button" value="清空" onclick=\'clearHotels()\' class="submitBtn btn-danger" /></li>'
     html=""
     // console.log("compare_boxes: ",compare_boxes)
@@ -329,7 +329,7 @@ function showHotels(){
         detail=compare_boxes[i].detail_info
         url=detail.detail_url
         name=compare_boxes[i].name
-        price=detail.price
+        price=detail.price 
         if (typeof price=="undefined" || price=="")
             price=0
         h="<li><a target='_blank' href='"+url+"'>"+name+"(￥"+price+")</a></li>"
@@ -344,16 +344,60 @@ function showHotels(){
 function showHotelsCompare(){
     getSrceenWH();
     className="bounceInDown"
-    console.log($('.editInfos').html())
     $('#dialogBg').fadeIn(300);
-
     $('#dialog').removeAttr('class').addClass('animated '+className+'').fadeIn();
 }
 
+// test????????????????????????????????????????????????????
 function viewHotels(){
     console.log('compare_boxes: ',compare_boxes)
+    var pre='<table class="table table-bordered">',suf='</table>';
+    var content='<tr><th>序号</th><th>酒店名</th><th>价格</th><th>总体评分</th>\
+    <th>类型</th><th>室内设施</th></tr>'
+    let index=1;
+    var td_colors=['success','warning','danger','info']//给表格行添加颜色的。
+    for (var i in compare_boxes){
+        detail=checkError(compare_boxes[i].detail_info)
+        url=checkError(detail.detail_url)
+        name=checkError(compare_boxes[i].name)
+        price=checkError(detail.price) 
+        overall_rating=checkError(detail.overall_rating)
+        level=checkError(detail.level)
+        inner_facility=checkError(detail.inner_facility)
+        backup=checkError(inner_facility)
+        if (inner_facility.length>15){
+            inner_facility=inner_facility.substring(0,15)+'....'
+        }
+        if (typeof price=="undefined" || price=="")
+            price=0;
+        var p = Math.floor((Math.random()*td_colors.length)); 
+        
+        piece='<tr class="'+td_colors[p]+'"><td>'+index+'</td><td><a target="_blank" href='+url+'>'+name+'</a></td><td>￥'+price+'</td><td>'+overall_rating+'</td>\
+        <td>'+level+'</td><td title="'+backup+'">'+inner_facility+'</td></tr>'
+        content+=piece;
+        index+=1;
+    }
+    content=pre+content+suf
+    $('.editInfos').html(content)
 }
 
+//判断错误类型 p不特定类型
+function checkError(p){
+    try {
+        if (typeof p == 'undefined')
+            throw exception;
+        return p;
+    } catch (error) {
+        return ""
+    }
+}
+
+
+function closeHotelsCompare(){
+    $('#dialogBg').fadeOut(300,function(){
+        $('#dialog').addClass('bounceOutUp').fadeOut();
+    });
+}
 //???????????????????????????????????????????????????????????????????????????????
 function clearHotels(){
     compare_boxes=new Array()//清空对比箱

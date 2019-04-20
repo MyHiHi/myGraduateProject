@@ -21,6 +21,9 @@ var nearby_markers=new Array()
 var compare_boxes=new Array();//存放对比箱
 var services=new Array();//存储选择好的设施
 
+
+
+
 var geolocationControl = new BMap.GeolocationControl({showAddressBar:false,enableAutoLocation:true});//定位控件
 var current_gif="http://www.yantiansf.cn/mapImage/1.gif" //当前位置标签图案
 var geoc = new BMap.Geocoder();//地址解析
