@@ -179,7 +179,7 @@ function clearNearbyOverlays(){
         nearby_markers=new Array();//重置
     }
 }
-// 222222222222222222222222222222222222222222222222222222222222222222222222222222222222
+
 function nearbyMarkersSet(rs){
     MoveRunningDiv();
     count = Object.keys(rs).length;
@@ -324,7 +324,6 @@ function showHotels(){
     operations='<li><input type="button" value="查看" onclick=\'viewHotels()\' class="rollIn submitBtn btn-primary" /></li>\
     <li><input type="button" value="清空" onclick=\'clearHotels()\' class="submitBtn btn-danger" /></li>'
     html=""
-    // console.log("compare_boxes: ",compare_boxes)
     for (var i in compare_boxes){
         detail=compare_boxes[i].detail_info
         url=detail.detail_url
@@ -347,12 +346,10 @@ function showHotelsCompare(){
     $('#dialogBg').fadeIn(300);
     $('#dialog').removeAttr('class').addClass('animated '+className+'').fadeIn();
 }
-
-// test????????????????????????????????????????????????????
 function viewHotels(){
     console.log('compare_boxes: ',compare_boxes)
-    var pre='<table class="table table-bordered">',suf='</table>';
-    var content='<tr><th>序号</th><th>酒店名</th><th>价格</th><th>总体评分</th>\
+    var pre='<table id="boxes_table" class="table table-bordered">',suf='</table>';
+    var content='<tr style="text-align:center"><th>序号</th><th>酒店名</th><th>价格</th><th>总体评分</th>\
     <th>类型</th><th>室内设施</th></tr>'
     let index=1;
     var td_colors=['success','warning','danger','info']//给表格行添加颜色的。
@@ -398,7 +395,7 @@ function closeHotelsCompare(){
         $('#dialog').addClass('bounceOutUp').fadeOut();
     });
 }
-//???????????????????????????????????????????????????????????????????????????????
+
 function clearHotels(){
     compare_boxes=new Array()//清空对比箱
     $('.editInfos').html('<li>此处空空如也.........</li>\
@@ -492,9 +489,9 @@ function MoveRunningDiv() {
     $("#tip").remove()
 }
 
-//
+
 function showServices(services){
-    if (services.indexOf("不限")!=-1){
+    if (services.indexOf("不限")!=-1){//只要选了不限就在当前范围搜索全部酒店
         showPlace(names);
         return true
     }

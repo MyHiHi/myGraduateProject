@@ -13,21 +13,14 @@ var init_class = 16.5;
 var sum_places = new Array();//存储所有结果的字典
 var current_places = new Array();//当前本地搜索结果的字典
 var address="";//point转为的地址
-var Circle_meters=1500;//搜索中的范围 : 米
-
-var nearby_places=['超市','景点','商场']
-var nearby_meters=300;//周围500米
-var nearby_markers=new Array()
+var nearby_markers=new Array();//存储当前范围内的超市、景点等对象信息
 var compare_boxes=new Array();//存放对比箱
 var services=new Array();//存储选择好的设施
-
-
-
 
 var geolocationControl = new BMap.GeolocationControl({showAddressBar:false,enableAutoLocation:true});//定位控件
 var current_gif="http://www.yantiansf.cn/mapImage/1.gif" //当前位置标签图案
 var geoc = new BMap.Geocoder();//地址解析
-var c=0;//显示第几条结果
+var c=0;//显示搜索到的结果总数
 var bounds=null //当前视图的范围
 var conditions=new Array();//存储后台返回的结果数组
 var condition_places=new Array();//存储筛选对conditions条件之后的结果

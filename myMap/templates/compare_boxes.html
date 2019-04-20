@@ -1,11 +1,11 @@
 <div id="">
     <div id="wrapper">
-        
+
         <div class="box">
             <div class="demo">
                 <a id='compare_boxes' href="javascript:;" onclick="showHotels()" class="btn btn-primary bounceInDown">酒店对比箱</a>
             </div>
-            
+
             <div id="dialogBg"></div>
             <div id="dialog" class="animated">
                 <img class="dialogIco" width="50" height="50" src="../static/img/ico.png" alt="" />
@@ -15,72 +15,42 @@
                 <div id="editForm">
                     <ul class="editInfos">
                         <li>此处空空如也.........</li>
-                        <li><input type="button" value="查看" class="submitBtn btn-primary"  /></li>
-    <li><input type="button" value="清空"  class="submitBtn btn-danger" /></li>
+                        <li>
+                            <input type="button" value="查看" class="submitBtn btn-primary" />
+                        </li>
+                        <li>
+                            <input type="button" value="清空" class="submitBtn btn-danger" />
+                        </li>
 
                     </ul>
                 </div>
             </div>
         </div>
-        
-        <!-- test -->
-
-        <div id="dialogBg" class="showMe"></div>
-        <div id="dialog"  class="animated showMeNext">
-            <img class="dialogIco" width="50" height="50" src="../static/img/ico.png" alt="" />
-            <div class="dialogTop">
-                <a href="javascript:;" class="claseDialogBtn">收起对比箱</a>
-            </div>
-            <div id="editForm">
-                <ul class="editInfos">
-                    <li>表格.........</li>
-                    <li><input type="button" value="查看" class="submitBtn btn-primary"  /></li>
-<li><input type="button" value="清空"  class="submitBtn btn-danger" /></li>
-
-                </ul>
-            </div>
-        </div>
-    </div>
-    
-
-<!-- test -->
 
 
 
 
     </div>
-    </div>
-
-
-
 </div>
-
-
 <script type="text/javascript">
-    var w,h,className;
-    function getSrceenWH(){
+    var w, h, className;
+    function getSrceenWH() {
         w = $(window).width();
         h = $(window).height();
         $('#dialogBg').width(w).height(h);
     }
-    
-    window.onresize = function(){  
+
+    window.onresize = function () {
         getSrceenWH();
-    }  
-    $(window).resize();  
-    
-    $(function(){
+    }
+    $(window).resize();
+
+    $(function () {
         getSrceenWH();
-        // $('.box a').click(function(){
-        //     // className = $(this).attr('class');
-        //     className="bounceInDown"
-        //     $('#dialogBg').fadeIn(300);
-        //     $('#dialog').removeAttr('class').addClass('animated '+className+'').fadeIn();
-        // });
-        $('.claseDialogBtn').click(function(){
-            $('#dialogBg').fadeOut(300,function(){
+        $('.claseDialogBtn').click(function () {
+            $('#dialogBg').fadeOut(300, function () {
                 $('#dialog').addClass('bounceOutUp').fadeOut();
             });
         });
     });
-    </script>
+</script>

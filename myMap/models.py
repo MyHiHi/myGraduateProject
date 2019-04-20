@@ -16,8 +16,6 @@ class Basic(models.Model):
     img_url = models.CharField(max_length=30,blank=True)
     price = models.CharField(max_length=10, blank=True)
     uid = models.CharField(db_index=True, max_length=200)
-    # objects=Manager()
-    # objects = models.Manager()
     class Meta:
         db_table="basic"
 

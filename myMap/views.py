@@ -3,8 +3,6 @@ from django.shortcuts import render
 from django.http import HttpResponse, JsonResponse
 import json
 from .utils import Manager
-# from . import models
-
 # 创建操作对象
 manager=Manager()
 
@@ -29,9 +27,3 @@ def getDetailsByuid(request):
             print("插入出错: ",e)
         finally:
             return HttpResponse(r)
-# def getImageUrl(request):
-#     uid = request.GET.get("uid")
-#     print("MMMMMMMM: ",uid)
-#     return HttpResponse(manager.getImageAndDetail_urlByUid(str(uid)).get("image"))
-#     # return manager.getImageAndDetail_urlByUid(uid).get("image")
-

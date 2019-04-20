@@ -14,7 +14,11 @@ html,
     width: 100%;
 
 }
-
+#boxes_table{
+    text-align: center;
+    color:#c94e50;
+    font-weight: 400
+}
 #place_select {
     text-align: center;
     left:28%;
