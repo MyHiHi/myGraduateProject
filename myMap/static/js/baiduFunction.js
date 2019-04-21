@@ -280,7 +280,7 @@ id='hotel_img'><img  width='340' height='160' src='"+ mes.img_url + "'>\
             </div><br><p><i class=' fa  fa-bank' style='color:springgreen'></i> 地址:"+ mes.address + "</p>\
             <p><i class=' fa fa-phone' style='color:blue'></i> 电话:"+ mes.telephone + "</p>\
     <p style='color:orange'> <i class=' fa fa-star' style='color:goldenrod'></i> 卫生评分:"+ detail_info.hygiene_rating + "--服务评分:" + detail_info.service_rating + "---设施评分:" + detail_info.facility_rating + "</p></a>\
-    <span id='compareBox' class='btn "+flag["class"]+"' onclick='hotelsCompare()' style='text-align:center' value='"+point_str+"'>"+flag["tip"]+"</span> </div>"
+    <span id='compareBox' class='btn "+flag["class"]+"' onclick='hotelsCompare()' style='text-align:center' value='"+point_str+"'>"+flag["tip"]+"</span> <span id='comeHere' class='btn btn-primary' value='"+point_str+"' onclick='comeHere()'>到这里</span></div>"
     var main = { "content": html, "title": "<i class='fa fa-2x fa-home' style='color:orange'></i>" + mes.name + "(" + detail_info.level + "--" + detail_info.overall_rating + "分)" }
     return main
 }
@@ -294,6 +294,12 @@ function DangerOrSuccess(point_str){
     }
 }
 
+function comeHere(){
+   p=$('#comeHere').attr('value')
+   endPoint=transStringToPoint(p)
+   var driving = new BMap.DrivingRoute(map, {renderOptions:{map: map, autoViewport: true}});
+    driving.search(currentPoint, endPoint);
+}
 function hotelsCompare(){
     box=$("#compareBox");
     changeBoxClass(box);//绿色代表选中，红色代表未选中。

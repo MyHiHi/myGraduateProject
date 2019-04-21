@@ -53,6 +53,7 @@ var cityListControl = new BMap.CityListControl({
         geoc.getLocation(map.getCenter(),function(rs){
 			c_location = rs.addressComponents.city;
 			map.centerAndZoom(map.getCenter(),init_class)
+			currentPoint=map.getCenter()
 			showPlace(names);
             //console.log(c_location)
         })
@@ -112,6 +113,7 @@ function setPlace(){
 			var pp = local.getResults().getPoi(0).point;    //获取第一个智能搜索的结果
 			map.centerAndZoom(pp, init_class);
 			map.addOverlay(new BMap.Marker(pp));    //添加标注
+			currentPoint=pp;//存放当前位置...........................
 			showPlace(names);//只能放这里
 		}
 		var local = new BMap.LocalSearch(map, { //智能搜索
