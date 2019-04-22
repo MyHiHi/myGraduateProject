@@ -268,10 +268,12 @@ function showInfoByWindow(point_str) {
 
 function getWindowHtml(point_str) {
     var info = sum_places[point_str];
+    var point=transStringToPoint(point_str);
     var uid = info.uid
     var mes = getDetailsByUid(uid);
     var detail_info = mes.detail_info;
     var flag=DangerOrSuccess(point_str);//css标识是否加入对比
+    var distance=getDistance(currentPoint,point)//公里
     var html = "<a style='line-height:30px' id='a' target='_blank'  href='" + detail_info.detail_url + "' >   \
 <div id='windowInfo'><div title='酒店设施("+ detail_info.hotel_facility + ")------>\
 室内设施("+ detail_info.inner_facility + ")------->\
@@ -279,12 +281,24 @@ function getWindowHtml(point_str) {
 id='hotel_img'><img  width='340' height='160' src='"+ mes.img_url + "'>\
             </div><br><p><i class=' fa  fa-bank' style='color:springgreen'></i> 地址:"+ mes.address + "</p>\
             <p><i class=' fa fa-phone' style='color:blue'></i> 电话:"+ mes.telephone + "</p>\
-    <p style='color:orange'> <i class=' fa fa-star' style='color:goldenrod'></i> 卫生评分:"+ detail_info.hygiene_rating + "--服务评分:" + detail_info.service_rating + "---设施评分:" + detail_info.facility_rating + "</p></a>\
+    <p style='color:orange'> <i class=' fa fa-star' style='color:goldenrod'></i> 卫生评分:"+ detail_info.hygiene_rating + "--服务评分:" + detail_info.service_rating + "---设施评分:" + detail_info.facility_rating + "</p><p>距离起点<a href='javascript:void(0);' style='color:red'>"+" </a>距离\
+    "+distance+" 公里</p></a>\
     <span id='compareBox' class='btn "+flag["class"]+"' onclick='hotelsCompare()' style='text-align:center' value='"+point_str+"'>"+flag["tip"]+"</span> <span id='comeHere' class='btn btn-primary' value='"+point_str+"' onclick='comeHere()'>到这里</span></div>"
     var main = { "content": html, "title": "<i class='fa fa-2x fa-home' style='color:orange'></i>" + mes.name + "(" + detail_info.level + "--" + detail_info.overall_rating + "分)" }
     return main
 }
 
+// 返回undefined 错误
+// function getAddressByPoint(point){
+//     try {
+//         geoc.getLocation(point, function(rs){
+//             var addComp = rs.addressComponents;
+//             return (addComp.province + "" + addComp.city + "" + addComp.district + "" + addComp.street + "" + addComp.streetNumber);
+//         }); 
+//     } catch (error) {
+//         return ' 未知 ';
+//     } 
+// }
 
 function DangerOrSuccess(point_str){
     if (point_str in compare_boxes){
@@ -292,6 +306,27 @@ function DangerOrSuccess(point_str){
     }else{
         return {"class":"btn-danger","tip":"未加入对比箱"};
     }
+}
+
+function getCarTimeAndDistance(point_str){
+    endPoint=transStringToPoint(point_str);
+    var car=new Array();
+    var searchComplete = function (results){
+		if (transit.getStatus() != BMAP_STATUS_SUCCESS){
+			return ;
+		}
+        var plan = results.getPlan(0);
+        car['time']= plan.getDuration(true);
+        car['distance']=plan.getDistance(true);
+        return car;
+	}
+	var transit = new BMap.DrivingRoute(map, {renderOptions: {map: map},
+		onSearchComplete: searchComplete,
+	// 	onPolylinesSet: function(){        
+	// 		setTimeout(function(){alert(output)},"1000");
+    // }
+});
+	transit.search(currentPoint,endPoint);
 }
 
 function comeHere(){
@@ -462,9 +497,9 @@ function getAddress(point) {
 
 
 //单位：公里
-// function getDistance(point1, point2) {
-//     return (map.getDistance(point1, point2) / 1000).toFixed(2);
-// }
+function getDistance(point1, point2) {
+    return (map.getDistance(point1, point2) / 1000).toFixed(2);
+}
 
 function changePlace(p) {
     k=examples[p];

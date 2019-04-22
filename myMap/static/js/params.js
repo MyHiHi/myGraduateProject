@@ -1,5 +1,6 @@
 var map;
-var  currentPoint; //我当前的位置point
+var  currentPoint; //我当前的位置point;
+var current_address;//逆地址解析currentPoint的地址
 var c_location;//取到的城市
 var names = ["酒店","旅馆"]; //检索基础关键字
 var names_backups = ["酒店","旅馆"]; //值与初始时的names保持一致，这是names备用的，一旦names出错，就主动赋值
@@ -19,7 +20,7 @@ var services=new Array();//存储选择好的设施
 
 var geolocationControl = new BMap.GeolocationControl({showAddressBar:false,enableAutoLocation:true});//定位控件
 var current_gif="http://www.yantiansf.cn/mapImage/1.gif" //当前位置标签图案
-var geoc = new BMap.Geocoder();//地址解析
+var geoc = new BMap.Geocoder();//地址逆解析对象
 var c=0;//显示搜索到的结果总数
 var bounds=null //当前视图的范围
 var conditions=new Array();//存储后台返回的结果数组
@@ -30,6 +31,8 @@ var mapTypeControl = new BMap.MapTypeControl({
 			BMAP_HYBRID_MAP
 		]
 });
+
+var geoc = new BMap.Geocoder();//拟地址解析对象
  // 添加带有定位的导航控件
  var navigationControl = new BMap.NavigationControl({
     // 靠左上角位置
@@ -53,9 +56,10 @@ var cityListControl = new BMap.CityListControl({
         geoc.getLocation(map.getCenter(),function(rs){
 			c_location = rs.addressComponents.city;
 			map.centerAndZoom(map.getCenter(),init_class)
-			currentPoint=map.getCenter()
+			currentPoint=map.getCenter();
+			// ?????????????????????????????????????????????????????????????
+			current_address=getAddressByPoint(currentPoint);
 			showPlace(names);
-            //console.log(c_location)
         })
     }
 });//城市列表控件
@@ -73,6 +77,8 @@ geolocationControl.addEventListener("locationSuccess", function(r){
 			c_location = r.addressComponent.city;
             // 定位成功事件
 			currentPoint = r.point;
+			// ????????????????????????????????????????????????????
+			// current_address=getAddressByPoint(currentPoint);
 			map.centerAndZoom(currentPoint,init_class);
             showPlace(names);
   });
@@ -114,6 +120,8 @@ function setPlace(){
 			map.centerAndZoom(pp, init_class);
 			map.addOverlay(new BMap.Marker(pp));    //添加标注
 			currentPoint=pp;//存放当前位置...........................
+			// ????????????????????????????????????????????????????????????
+			// current_address=getAddressByPoint(currentPoint);
 			showPlace(names);//只能放这里
 		}
 		var local = new BMap.LocalSearch(map, { //智能搜索
