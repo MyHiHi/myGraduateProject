@@ -4,11 +4,12 @@ var current_address;//逆地址解析currentPoint的地址
 var c_location;//取到的城市
 var names = ["酒店","旅馆"]; //检索基础关键字
 var names_backups = ["酒店","旅馆"]; //值与初始时的names保持一致，这是names备用的，一旦names出错，就主动赋值
-var examples = {"显示周边":[],"超市":["超市","商城","商店","小吃","商场"],
+var examples = {"显示周边":[],"超市":["超市","商城","商店","小吃","商场",'小卖铺'],
 "景点":["景点","古迹"],
 "学校":["学校","培训学校","大学","校区"],
 "交通":["地铁","火车","机场","公交站"],
-"取消":[]};
+"取消":[]
+};
 var init_point = new BMap.Point(116.404, 39.915);
 var init_class = 16.5;
 var sum_places = new Array();//存储所有结果的字典
@@ -54,11 +55,10 @@ var cityListControl = new BMap.CityListControl({
     offset: new BMap.Size(60, 20),
     onChangeAfter:function(){
         geoc.getLocation(map.getCenter(),function(rs){
+			console.log('城市:',rs)
 			c_location = rs.addressComponents.city;
 			map.centerAndZoom(map.getCenter(),init_class)
 			currentPoint=map.getCenter();
-			// ?????????????????????????????????????????????????????????????
-			current_address=getAddressByPoint(currentPoint);
 			showPlace(names);
         })
     }
@@ -111,22 +111,21 @@ ac.addEventListener("onhighlight", function(e) {  //鼠标放在下拉列表上�
 		myValue = _value.province +  _value.city +  _value.district +  _value.street +  _value.business;
 		document.getElementById("searchResultPanel").innerHTML ="onconfirm<br />index = " + e.item.index + "<br />myValue = " + myValue;
 		setPlace();
-		
 	});
 
 function setPlace(){
-		function myFun(){
-			var pp = local.getResults().getPoi(0).point;    //获取第一个智能搜索的结果
-			map.centerAndZoom(pp, init_class);
-			map.addOverlay(new BMap.Marker(pp));    //添加标注
-			currentPoint=pp;//存放当前位置...........................
+		function find(){
+			var p1 = localFind.getResults().getPoi(0).point;    //获取第一个智能搜索的结果
+			map.centerAndZoom(p1, init_class);
+			map.addOverlay(new BMap.Marker(p1));    //添加标注
+			currentPoint=p1;//存放当前位置...........................
 			// ????????????????????????????????????????????????????????????
 			// current_address=getAddressByPoint(currentPoint);
 			showPlace(names);//只能放这里
 		}
-		var local = new BMap.LocalSearch(map, { //智能搜索
-		  onSearchComplete: myFun
+		var localFind = new BMap.LocalSearch(map, { //智能搜索
+		  onSearchComplete: find
 		});
-		local.search(myValue);
+		localFind.search(myValue);
 }
 

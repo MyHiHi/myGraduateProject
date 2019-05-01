@@ -82,10 +82,12 @@ function priceChange() {
     var max = oSelect.options.length;
     var index = oSelect.selectedIndex;
     var text = oSelect.options[index].text;
-    var low = 0, high = 10000000000;
+    var low = 0, high = 100000000;
+    setCurSelect(text);
     if (text == "全部") {
         low = low;
         high = high;
+       
     } else if (index == 1) {
         high = text.replace(/[^0-9]/ig, "");
     } else if (index == max - 1) {
@@ -97,6 +99,10 @@ function priceChange() {
     }
     
     setSearchOverlaysByPrice(low, high)
+}
+
+function setCurSelect(str){
+    $('#cur-select').html(str)
 }
 
 function setSearchOverlaysByPrice(low, high) {
@@ -353,11 +359,9 @@ function changeBoxClass(box){
 function pushOrPopBox(point_str){
     if (point_str in compare_boxes){
         delete compare_boxes[point_str]
-        console.log("箱子删除以后:",compare_boxes)
         
     }else{
         compare_boxes[point_str]=conditions[point_str]
-        console.log("箱子添加以后 :",compare_boxes)
     }
 }
 
